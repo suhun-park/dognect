@@ -31,8 +31,6 @@ class RootTab extends GetView<RootTabController> {
           BottomNavigationBarItem(
               icon: Icon(Icons.note_alt_outlined), label: '게시판'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: '쇼핑몰'),
-          BottomNavigationBarItem(
               icon: Icon(Icons.person), label: '내정보'),
 
         ],
@@ -43,7 +41,6 @@ class RootTab extends GetView<RootTabController> {
         children:const [
           HomeScreen(),
           Center(child: Text("게시판"),),
-          Center(child: Text("쇼핑몰"),),
           Center(child: Text("내정보"),)
         ],
       ),

@@ -1,10 +1,15 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import '../../user/login/component/data.dart';
+import '../../user/login/view/login_screen.dart';
 import '../view/root_tab.dart';
 import 'default_layout.dart';
 
@@ -18,10 +23,33 @@ class SplashScreen extends StatefulWidget {
 
 
 class _SplashScreenState extends State<SplashScreen> {
+  final storage = FlutterSecureStorage();
   void initState() {
-    Timer(const Duration(milliseconds: 1000), () =>
-        Get.to(() =>RootTab()),
-    );
+    super.initState();
+    checkToken();
+  }
+  void checkToken() async{
+    final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
+    final accessToken  = await storage.read(key: ACCESS_TOKEN_KEY);
+    try {
+      OAuthToken token = await UserApi.instance.loginWithKakaoAccount();
+      final url = Uri.https('kapi.kakao.com', '/v2/user/me');
+
+      final response = await http.get(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
+        },
+      );
+      final profileInfo = json.decode(response.body);
+      await storage.write(key: ACCESS_TOKEN_KEY, value: token.accessToken);
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => RootTab()), (route) => false);
+    }catch(e) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (_) => LoginScreen()),
+              (route) => false);
+    }
   }
   @override
   Widget build(BuildContext context) {

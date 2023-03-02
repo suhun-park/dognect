@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "도그넷",
+      title: "도그넥",
       debugShowCheckedModeBanner: false,
       /*theme: ThemeData(
         fontFamily: 'fonts',

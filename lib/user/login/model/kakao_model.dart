@@ -1,5 +1,6 @@
-import 'package:dognect/common/component/login/social_login.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+
+import '../component/social_login.dart';
 
 
 class KakaoModel {

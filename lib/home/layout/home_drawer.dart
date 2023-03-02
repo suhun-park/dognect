@@ -4,13 +4,23 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../common/color/color.dart';
+
+import '../../user/login/component/social_login.dart';
+import '../../user/login/model/kakao_model.dart';
 import '../view/faq/view/faq_screen.dart';
 
-class HomeDrawer extends StatelessWidget {
+class HomeDrawer extends StatefulWidget {
   const HomeDrawer({Key? key}) : super(key: key);
 
   @override
+  State<HomeDrawer> createState() => _HomeDrawerState();
+}
+
+class _HomeDrawerState extends State<HomeDrawer> {
+  final viewModel = KakaoModel(KakaoLogin());
+  @override
   Widget build(BuildContext context) {
+    //홈의 메뉴 부분
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -24,14 +34,16 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             accountName: Text('애교많은 강아지',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),), //수정 값을 받아와야함
-            accountEmail: Text('suhunhope@naver.com',style: TextStyle(fontSize: 15),), //수정 값을 받아야함
+            accountEmail: Text("${viewModel.user?.kakaoAccount?.email}",style: TextStyle(fontSize: 15),), //수정 값을 받아야함
             onDetailsPressed: (){ //펼쳐지게끔
-              print('arrow is clicked');
+              setState(() {
+
+              });
             },
-            currentAccountPicture: CircleAvatar(
+            currentAccountPicture: const CircleAvatar(
               backgroundImage: AssetImage('assets/img/수훈이와주현이.jpeg'), //수정 값을 받아야함
             ),
-            otherAccountsPictures: [
+            otherAccountsPictures: const [
               CircleAvatar(
                 backgroundImage: AssetImage('assets/img/수훈이와주현이.jpeg'), //수정 값을 받아야함
               )
@@ -48,7 +60,7 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings,color: Colors.grey[850],),
             title: Text('설정'),
-            onTap: () => Get.to(FaqScreen()),
+            onTap: () => Get.to(() =>FaqScreen()),
 
             trailing: Icon(Icons.add),
           ),
@@ -56,7 +68,8 @@ class HomeDrawer extends StatelessWidget {
             leading: Icon(Icons.question_answer,color: Colors.grey[850],),
             title: Text('FAQ'),
             onTap: (){
-              print('QnA is clicked');
+              viewModel.logout();
+              print("${viewModel.isLogined}");
             },
             trailing: Icon(Icons.add),
           ),

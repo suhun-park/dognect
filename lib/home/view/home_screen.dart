@@ -13,36 +13,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0),
-        child: AppBar(
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: APPBAR_COLOR,
-          centerTitle: false,
-          title: const Text("애교강아지",style: TextStyle(fontSize: 20),),
-        ),
-      ),
-      body: const HomeItemBody(),
-      endDrawer: const HomeDrawer()
-    );
-  }
-}
-class HomeItemBody extends StatelessWidget {
-  const HomeItemBody({Key? key}) : super(key: key);
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+              ),
+            ],
+          )
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-      HomeLayout(
-      iconItem: const [
-        Icon(Icons.add),
-        Icon(Icons.abc)
-      ],
-        )
         ],
+      ),
+      //endDrawer: HomeDrawer()
     );
   }
 }
+
 

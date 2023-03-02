@@ -35,6 +35,9 @@ dependencies:
   firebase_core:
   firebase_auth:
   kakao_flutter_sdk:
+  kakao_flutter_sdk_user:
+  http:
+  flutter_secure_storage:
 
 
   # The following adds the Cupertino Icons font to your application.
