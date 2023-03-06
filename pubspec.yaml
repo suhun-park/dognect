@@ -31,13 +31,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get:
   firebase_core:
   firebase_auth:
   kakao_flutter_sdk:
   kakao_flutter_sdk_user:
   http:
   flutter_secure_storage:
+  cloud_firestore:
+  kpostal:
+  gap: ^2.0.1
+  get:
+  image_picker:
+  go_router: 
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,7 +74,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+   - assets/
    - assets/img/
+   - assets/img/login/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -88,6 +95,20 @@ flutter:
       fonts:
         - asset: assets/fonts/fonts-rain.ttf
           weight: 900
+    - family: MaruBuri
+      fonts:
+        - asset: assets/fonts/MaruBuri-Bold.ttf
+          weight: 900
+    - family: NanumGothic
+      fonts:
+        - asset: assets/fonts/NanumGothic.ttf
+          weight: 500
+        - asset: assets/fonts/NanumGothicBold.ttf
+          weight: 700
+        - asset: assets/fonts/NanumGothicExtraBold.ttf
+          weight: 900
+        - asset: assets/fonts/NanumGothicLight.ttf
+          weight: 300
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -5,8 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../common/color/color.dart';
 
-import '../../user/login/component/social_login.dart';
-import '../../user/login/model/kakao_model.dart';
+import '../../user/login/kakao/component/kakao_social_login.dart';
+import '../../user/login/kakao/model/kakao_model.dart';
 import '../view/faq/view/faq_screen.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -26,8 +26,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: APPBAR_COLOR,
+            decoration: const BoxDecoration(
+              color: BACKGROUND_COLOR,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(40.0),
                 bottomRight: Radius.circular(40.0),

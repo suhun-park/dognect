@@ -3,8 +3,8 @@ import 'package:dognect/common/layout/default_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../user/login/component/social_login.dart';
-import '../../../../user/login/model/kakao_model.dart';
+import '../../../../user/login/kakao/component/kakao_social_login.dart';
+import '../../../../user/login/kakao/model/kakao_model.dart';
 
 class FaqScreen extends StatelessWidget {
   const FaqScreen({Key? key}) : super(key: key);

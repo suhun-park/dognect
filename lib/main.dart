@@ -1,5 +1,7 @@
-import 'package:dognect/common/layout/splash_screen.dart';
+import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/common/view/root_tab.dart';
+import 'package:dognect/user/login/view/login_first_screen.dart';
+import 'package:dognect/user/login/view/login_profile_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,10 +30,14 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "도그넥",
       debugShowCheckedModeBanner: false,
-      /*theme: ThemeData(
+      theme: ThemeData(
         fontFamily: 'fonts',
-      ),*/
-      home: SplashScreen(),
+      ),
+      home: LoginFirstScreen(),
+      getPages: [
+        GetPage(name: '/RootTab', page: ()=> RootTab()),
+        GetPage(name: '/Home', page: () => HomeScreen()),
+      ],
       initialBinding: BindingsBuilder((){
         Get.put(RootTabController());
       }),

@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+    </dict>
     <key>LSApplicationQueriesSchemes</key>
      <array>
        <!-- 카카오톡으로 로그인 -->
@@ -43,6 +48,12 @@
 	<key>KAKAO_APP_KEY</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
+	<key>NSCameraUsageDescription</key>
+        <string>카메라 사용에 필요합니다.</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>마이크 사용에 필요합니다.</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>사진라이브러리 사용에 필요합니다.</string>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
