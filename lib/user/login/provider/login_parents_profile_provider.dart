@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dognect/user/login/provider/role_provider.dart';
 import 'package:dognect/user/login/provider/sign_up_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -39,6 +41,10 @@ class LoginParentsProfileProvider with ChangeNotifier {
     return null;
   }
 
+
+  void imageChange() {
+    selectedImages();
+  }
   Future<void> checkFunction(BuildContext context) async {
     final storage = FlutterSecureStorage();
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -56,13 +62,21 @@ class LoginParentsProfileProvider with ChangeNotifier {
         'nickName': nickNameValue,
         'uid': user?.uid,
       });
-      context.go('/homeScreen');
     } catch (e) {
       print(e);
     }
-  }
-
-  void imageChange() {
-    selectedImages();
+    try {
+        String fileName = '${user?.uid!}.png';
+        Reference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child('users/$fileName');
+        File changeImageFile = File(imageFile!.path);
+        UploadTask uploadTask = firebaseStorageRef.putFile(changeImageFile);
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+        String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+        print(downloadUrl);
+    } catch(e){
+      print(e);
+    }
+    return context.go('/homeScreen');
   }
 }

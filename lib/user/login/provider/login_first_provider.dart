@@ -6,11 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:provider/provider.dart';
 
+import '../../provider/user_provider.dart';
 import '../component/data/data.dart';
 import '../kakao/component/kakao_social_login.dart';
 import '../kakao/model/kakao_model.dart';
-import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart'as kakao_user;
 
 
 class LoginFirstProvider with ChangeNotifier {
@@ -19,7 +20,6 @@ class LoginFirstProvider with ChangeNotifier {
   String emailLoginValue = '';
   String pwdLoginValue = '';
 
-  List<UserModel> userMyModelData = [];
 
   void emailController(value) {
     emailLoginValue = value;
@@ -31,28 +31,8 @@ class LoginFirstProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  kakao_user.User? kuser;
 
-  Future<List<UserModel>> userDataGet() async {
-    final storage = FlutterSecureStorage();
-    CollectionReference<Map<String, dynamic>> collectionReference =
-        FirebaseFirestore.instance.collection("user");
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await collectionReference
-            .where(
-              'uid',
-              isEqualTo: await storage.read(key: FIREBASE_TOKEN_KEY),
-            )
-            .where('userEmail', isEqualTo: kuser?.kakaoAccount?.email)
-            .get();
-    userMyModelData.clear();
-    for (var element in querySnapshot.docs) {
-      userMyModelData.add(UserModel.fromJson(element.data()));
-    }
-    print(userMyModelData);
 
-    return userMyModelData;
-  }
 
   String? emailValidator(value) {
     String pattern =
@@ -102,17 +82,18 @@ class LoginFirstProvider with ChangeNotifier {
   }
 
   Future<void> kakaoUserCheck(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context,listen: false);
     final viewModel = KakaoModel(KakaoLogin());
     await viewModel.login();
-    await userDataGet();
+    await userProvider.userDataGet();
     OAuthToken? token = await TokenManagerProvider.instance.manager.getToken();
-    if (token != null && userMyModelData.isNotEmpty) {
+    if (token != null && userProvider.userMyModelData.isNotEmpty) {
       try {
         context.go('/homeScreen');
       } catch (e) {
         return null;
       }
-    } else if (userMyModelData.isEmpty) {
+    } else if (userProvider.userMyModelData.isEmpty) {
       try {
         LoginParentsProfileScreen();
       } catch (e) {

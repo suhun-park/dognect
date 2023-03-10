@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../user/login/view/login_first_screen.dart';
 import '../../user/login/view/sign_up_screen.dart';
+import '../view/root_tab.dart';
 
 class RouterData extends ChangeNotifier {
   final GoRouter routerData = GoRouter(routes: <RouteBase>[
@@ -14,6 +15,12 @@ class RouterData extends ChangeNotifier {
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
         return const SplashScreen();
+      },
+    ),
+    GoRoute(
+      path: '/rootTab',
+      builder: (BuildContext context, GoRouterState state) {
+        return const RootTab();
       },
     ),
     GoRoute(

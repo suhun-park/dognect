@@ -11,25 +11,28 @@ import 'package:provider/provider.dart';
 import '../../user/login/component/data/data.dart';
 import 'package:http/http.dart' as http;
 
+import '../../user/provider/user_provider.dart';
+
 class SplashProvider with ChangeNotifier{
   final storage = FlutterSecureStorage();
+
   void checkToken(BuildContext context) async {
-    final loginFirstProvider = Provider.of<LoginFirstProvider>(context);
-    loginFirstProvider.userDataGet();
+    final userProvider = Provider.of<UserProvider>(context,listen: false);
+    userProvider.userDataGet();
     OAuthToken? token = await TokenManagerProvider.instance.manager.getToken();
 
     if (token?.refreshToken != null) {
       try {
         await storage.write(key: ACCESS_TOKEN_KEY, value: token?.accessToken);
-        if(loginFirstProvider.userMyModelData.isNotEmpty){
-          print(loginFirstProvider.userMyModelData);
+        if(userProvider.userMyModelData.isNotEmpty){
           try {
-            context.go('/homeScreen');
+            context.go('/rootTab');
           }catch(e){
             context.pop(); //로그인 에러
           }
         }else{
-          context.go('/loginParentsProfileScreen');
+          context.go('/loginFirstScreen');
+          //context.go('/loginParentsProfileScreen'); 잠깐 수정
         }
       }catch(e) {
         context.go('/loginFirstScreen');

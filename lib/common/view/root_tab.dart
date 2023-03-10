@@ -1,17 +1,19 @@
-/*import 'package:flutter/cupertino.dart';
+import 'package:dognect/common/provider/tab_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../home/view/home_screen.dart';
-import '../controller/tab_controller.dart';
 import '../layout/default_layout.dart';
 
 
 
-class RootTab extends GetView<RootTabController> {
+class RootTab extends StatelessWidget {
   const RootTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>DefaultLayout(
+    final rootTabController = Provider.of<RootTabController>(context);
+    return DefaultLayout(
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         elevation: 5,
@@ -21,8 +23,8 @@ class RootTab extends GetView<RootTabController> {
         selectedFontSize: 15,
         unselectedFontSize: 10,
         type: BottomNavigationBarType.fixed,
-        onTap:controller.tabIndexController,
-        currentIndex: controller.tabIndex.value,
+        onTap:(index) => rootTabController.controllerIndex,
+        currentIndex: rootTabController.controllerIndex,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
           BottomNavigationBarItem(
@@ -34,14 +36,13 @@ class RootTab extends GetView<RootTabController> {
 
       ),
       child: IndexedStack(
-        index: controller.tabIndex.value,
+        index: rootTabController.controllerIndex,
         children:const [
           HomeScreen(),
           Center(child: Text("게시판"),),
           Center(child: Text("내정보"),)
         ],
       ),
-    )
     );
   }
-}*/
+}
