@@ -725,6 +725,8 @@ PODS:
     - Libuv-gRPC (= 0.0.10)
   - gRPC-Core/Interface (1.44.0)
   - GTMSessionFetcher/Core (3.0.0)
+  - image_picker_ios (0.0.1):
+    - Flutter
   - kakao_flutter_sdk_common (1.4.1):
     - Flutter
   - leveldb-library (1.22.1)
@@ -755,6 +757,7 @@ DEPENDENCIES:
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - geocoding (from `.symlinks/plugins/geocoding/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - kakao_flutter_sdk_common (from `.symlinks/plugins/kakao_flutter_sdk_common/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
@@ -793,6 +796,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   geocoding:
     :path: ".symlinks/plugins/geocoding/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   kakao_flutter_sdk_common:
     :path: ".symlinks/plugins/kakao_flutter_sdk_common/ios"
   shared_preferences_foundation:
@@ -819,6 +824,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
   GTMSessionFetcher: c1edebe64e9fb4e8f6415d018edf1fd3eac074a1
+  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   kakao_flutter_sdk_common: baf2faeeb68bf0b16b44188af725a24ca20e1860
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378

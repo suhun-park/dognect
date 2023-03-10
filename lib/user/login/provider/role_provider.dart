@@ -1,19 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
+import 'package:dognect/user/login/view/sign_up_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 import '../model/role_model.dart';
 
-class DropDownController extends GetxController {
+class RoleProvider with ChangeNotifier {
   String dropDownValue = '';
   List<RoleModel> roleModelData = [];
   List<String> roleData = [];
-  int dataLength = 0;
 
   @override
-  void onInit() {
-    super.onInit();
-    roleDataGet();
-  }
 
   Future<List<RoleModel>> roleDataGet() async {
     CollectionReference<Map<String, dynamic>> collectionReference = FirebaseFirestore.instance.collection("roles");
@@ -23,16 +20,23 @@ class DropDownController extends GetxController {
       roleModelData.add(RoleModel.fromJson(element.data()));
     }
     roleData = roleModelData.map((role) => role.role!).toList();
-
-    dataLength = roleModelData.length;
-    dropDownValue = roleData.first;
-    update();
+    if(dropDownValue.isEmpty){
+      dropDownValue = roleData.first;
+    }
 
     return roleModelData;
   }
 
-  void dropDownValueChange(String value) {
-    dropDownValue = value;
-    update();
+  void dropDownValueChange(String? value) {
+    dropDownValue = value!;
+    notifyListeners();
   }
-}
+  void roleChoice(BuildContext context) {
+    if(dropDownValue == roleData.first) {
+      context.push('/signUpScreen',extra:dropDownValue);
+    }
+      else{
+        context.push('/loginParentsFirstScreen');
+      }
+    }
+  }

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../color/color.dart';
+import '../data/color.dart';
 
 class DefaultLayout extends StatelessWidget {
   final Color? backgroundColor;

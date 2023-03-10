@@ -1,7 +1,8 @@
-import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:kpostal/kpostal.dart';
 
-class KpostalController extends GetxController{
+class KpostalProvider with ChangeNotifier{
   String postCode = '-';
   String address = '-';
   String latitude = '-';
@@ -9,15 +10,14 @@ class KpostalController extends GetxController{
   String kakaoLatitude = '-';
   String kakaoLongitude = '-';
 
-  Kpostal kpostalCallBack(Kpostal result) {
+   void kpostalCallBack(Kpostal result) {
     postCode = result.postCode;
     address = result.address;
     latitude = result.latitude.toString();
     longitude = result.longitude.toString();
     kakaoLatitude = result.kakaoLatitude.toString();
     kakaoLongitude = result.kakaoLongitude.toString();
-    update();
-    return result;
+    notifyListeners();
   }
 
 }

@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
+/*import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../../home/view/home_screen.dart';
-import '../color/color.dart';
 import '../controller/tab_controller.dart';
 import '../layout/default_layout.dart';
 
@@ -47,4 +44,4 @@ class RootTab extends GetView<RootTabController> {
     )
     );
   }
-}
+}*/
