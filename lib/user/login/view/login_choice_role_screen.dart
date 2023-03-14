@@ -1,6 +1,4 @@
 import 'package:dognect/user/login/component/widget/dropdown_widget.dart';
-import 'package:dognect/user/login/view/login_parents_profile_screen.dart';
-import 'package:dognect/user/login/view/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

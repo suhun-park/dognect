@@ -1,12 +1,16 @@
 import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/home/view/home_screen.dart';
+import 'package:dognect/user/login/provider/teacher/teacher_signup_provider.dart';
 import 'package:dognect/user/login/view/login_choice_role_screen.dart';
-import 'package:dognect/user/login/view/login_parents_profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
+
 import '../../user/login/view/login_first_screen.dart';
-import '../../user/login/view/sign_up_screen.dart';
+import '../../user/login/view/teacher/teacher_signup_screen.dart';
+import '../../user/login/view/user/user_login_parents_profile_screen.dart';
+import '../../user/login/view/user/user_signup_screen.dart';
+import '../page/view/calendar_screen.dart';
 import '../view/root_tab.dart';
 
 class RouterData extends ChangeNotifier {
@@ -35,21 +39,32 @@ class RouterData extends ChangeNotifier {
       },
     ),
     GoRoute(
-      path: '/signUpScreen',
+      path: '/userSignUpScreen',
       builder: (BuildContext context, GoRouterState state) {
-        return SignUpScreen();
+        return const UserSignUpScreen();
       },
     ),
     GoRoute(
-      path: '/loginParentsProfileScreen',
+      path: '/userLoginParentsProfileScreen',
       builder: (BuildContext context, GoRouterState state) {
-        return LoginParentsProfileScreen();
+        return UserLoginParentsProfileScreen();
       },
     ),
     GoRoute(
       path: '/loginChoiceRoleScreen',
       builder: (BuildContext context, GoRouterState state) {
         return const LoginChoiceRoleScreen();
+      },
+    ),
+    GoRoute(path: '/teacherSignUpScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return  const TeacherSignupScreen();
+      },
+    ),
+    GoRoute(
+      path: '/calendarScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const CalendarScreen();
       },
     ),
   ]);

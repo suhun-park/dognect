@@ -1,6 +1,3 @@
-import 'package:dognect/user/login/component/layout/custom_text_filed_form.dart';
-import 'package:dognect/user/login/component/layout/sign_up_text_form.dart';
-import 'package:dognect/user/login/view/login_parents_profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,12 +5,12 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/data/color.dart';
-import '../provider/sign_up_provider.dart';
+import '../../../../common/data/color.dart';
+import '../../component/layout/sign_up_text_form.dart';
+import '../../provider/teacher/teacher_signup_provider.dart';
 
-
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class TeacherSignupScreen extends StatelessWidget {
+  const TeacherSignupScreen({Key? key}) : super(key: key);
 
 
 
@@ -21,7 +18,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final customWidth = MediaQuery.of(context).size.width;
     final customHeight = MediaQuery.of(context).size.height;
-    final getData = Provider.of<SignUpProvider>(context);
+    final teacherSignUpProvider = Provider.of<TeacherSignupProvider>(context);
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
       body: SafeArea(
@@ -50,29 +47,29 @@ class SignUpScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          '회원님의 이름',
+                          '선생님의 이름',
                           style: TextStyle(fontSize: 24),
                         ),
                         Gap(10),
                         SignUpTextForm(
-                          globalKey: getData.nameChangedFormKey,
+                          globalKey: teacherSignUpProvider.nameChangedFormKey,
                           onChanged: (value) =>
-                              getData.nameChangedController(value),
+                              teacherSignUpProvider.nameChangedController(value),
                           hintText: "이름을 입력해주세요",
-                          validator: (value) => getData.nameValidate(value),
+                          validator: (value) => teacherSignUpProvider.nameValidate(value),
                         ),
                         Gap(30),
                         const Text(
-                          '애완견 이름',
+                          '선생님의 담당',
                           style: TextStyle(fontSize: 24),
                         ),
                         Gap(10),
                         SignUpTextForm(
-                          globalKey: getData.petNameChangedFormKey,
+                          globalKey: teacherSignUpProvider.dogRoleChangedFormKey,
                           onChanged: (value) =>
-                              getData.petNameChangedController(value),
-                          hintText: "애완견의 이름을 입력해주세요",
-                          validator: (value) => getData.petNameValidate(value),
+                              teacherSignUpProvider.petNameChangedController(value),
+                          hintText: "선생님의 담당 역할을 입력해주세요",
+                          validator: (value) => teacherSignUpProvider.petNameValidate(value),
                         ),
                         const Gap(30),
                         Text(
@@ -82,13 +79,13 @@ class SignUpScreen extends StatelessWidget {
                         Gap(10),
 
                         SignUpTextForm(
-                                globalKey: getData.emailChangedFormKey,
-                                onChanged: (value) =>
-                                    getData.emailChangedController(value),
-                                hintText: "이메일을 입력해주세요",
-                                validator: (value) =>getData.emailValidate(value),
-                              ),
-                            SizedBox(width: customWidth * 0.03),
+                          globalKey: teacherSignUpProvider.emailChangedFormKey,
+                          onChanged: (value) =>
+                              teacherSignUpProvider.emailChangedController(value),
+                          hintText: "이메일을 입력해주세요",
+                          validator: (value) =>teacherSignUpProvider.emailValidate(value),
+                        ),
+                        SizedBox(width: customWidth * 0.03),
                         Gap(10),
                         const Text(
                           '비밀번호',
@@ -96,10 +93,10 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         Gap(10),
                         SignUpTextForm(
-                          globalKey: getData.pwdChangedFormKey,
-                          onChanged: (value) => getData.pwdChangedController(value),
+                          globalKey: teacherSignUpProvider.pwdChangedFormKey,
+                          onChanged: (value) => teacherSignUpProvider.pwdChangedController(value),
                           hintText: "비밀번호를 입력해주세요",
-                          validator: (value) => getData.pwdValidate(value),
+                          validator: (value) => teacherSignUpProvider.pwdValidate(value),
                         ),
                         SizedBox(
                           height: customHeight * 0.05,
@@ -108,8 +105,8 @@ class SignUpScreen extends StatelessWidget {
                           height: customHeight * 0.01,
                         ),
                         TextButton(
-                            onPressed: () => getData.checkFunction(context),
-                            child: getData.isTrueCheck ? const Text(
+                            onPressed: () => teacherSignUpProvider.checkFunction(context),
+                            child: teacherSignUpProvider.isTrueCheck ? const Text(
                               "확인",
                               style: TextStyle(fontSize: 25),
                             ): const Text("인증하기",style: TextStyle(fontSize: 25),)),
@@ -119,12 +116,12 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
         ),
-        ),
-      );
+      ),
+    );
   }
 }
-Future emailCheckShowDialog(BuildContext context){
-  final getData = Provider.of<SignUpProvider>(context,listen: false);
+Future teacherEmailCheckShowDialog(BuildContext context){
+  final teacherSignupProvider = Provider.of<TeacherSignupProvider>(context,listen: false);
   return showDialog(
       context: context, builder: (BuildContext context) => AlertDialog(
     title: const Text('본인 인증 메시지'),
@@ -133,7 +130,7 @@ Future emailCheckShowDialog(BuildContext context){
       Container(
         child: TextButton(
           child: const Text("확인"),
-          onPressed:() => getData.identityVerification(context),
+          onPressed:() => teacherSignupProvider.identityVerification(context),
         ),
       ),
       Container(
@@ -145,8 +142,8 @@ Future emailCheckShowDialog(BuildContext context){
     ],
   ));
 }
-Future emailExistsShowDialog(BuildContext context){
-  final getData = Provider.of<SignUpProvider>(context,listen: false);
+Future teacherEmailExistsShowDialog(BuildContext context){
+  final teacherSignupProvider = Provider.of<TeacherSignupProvider>(context,listen: false);
   return showDialog(
       context: context, builder: (BuildContext context) => AlertDialog(
     content: const Text("이미 있는 이메일입니다"),

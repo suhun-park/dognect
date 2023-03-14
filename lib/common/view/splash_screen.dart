@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dognect/common/data/color.dart';
 import 'package:dognect/common/provider/splash_provider.dart';
+import 'package:dognect/user/provider/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +12,6 @@ import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import '../../user/login/component/data/data.dart';
-import '../../user/login/view/login_parents_profile_screen.dart';
 import 'root_tab.dart';
 import '../layout/default_layout.dart';
 
@@ -26,11 +26,13 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final splashProvider = Provider.of<SplashProvider>(context);
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final splashProvider = Provider.of<SplashProvider>(context,listen: false);
     splashProvider.checkToken(context);
   }
+
 
   @override
   Widget build(BuildContext context) {

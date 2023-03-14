@@ -16,15 +16,14 @@ class UserProvider with ChangeNotifier{
     FirebaseFirestore.instance.collection("user");
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
     await collectionReference
-        .where(
-      'uid', isEqualTo: await storage.read(key: FIREBASE_TOKEN_KEY),
-    ).where('userEmail', isEqualTo: kuser?.kakaoAccount?.email).get();
+    .where('uid',isEqualTo: await storage.read(key: FIREBASE_TOKEN_KEY),)
+       .where('userEmail', isEqualTo: kuser?.kakaoAccount?.email).get();
     userMyModelData.clear();
     for (var element in querySnapshot.docs) {
       userMyModelData.add(UserModel.fromJson(element.data()));
     }
-    print(userMyModelData);
-
+    print(userMyModelData.length);
+    notifyListeners();
     return userMyModelData;
   }
 }

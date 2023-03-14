@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dognect/user/login/view/login_parents_profile_screen.dart';
 import 'package:dognect/user/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_user;
 import 'package:flutter/cupertino.dart';
@@ -12,6 +11,7 @@ import '../../provider/user_provider.dart';
 import '../component/data/data.dart';
 import '../kakao/component/kakao_social_login.dart';
 import '../kakao/model/kakao_model.dart';
+import '../view/user/user_login_parents_profile_screen.dart';
 
 
 class LoginFirstProvider with ChangeNotifier {
@@ -95,7 +95,7 @@ class LoginFirstProvider with ChangeNotifier {
       }
     } else if (userProvider.userMyModelData.isEmpty) {
       try {
-        LoginParentsProfileScreen();
+        UserLoginParentsProfileScreen();
       } catch (e) {
         print("로그인 할 수 없습니다");
       }

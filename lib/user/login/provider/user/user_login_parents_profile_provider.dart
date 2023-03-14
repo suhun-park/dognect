@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dognect/user/login/provider/role_provider.dart';
-import 'package:dognect/user/login/provider/sign_up_provider.dart';
+import 'package:dognect/user/login/provider/user/user_signup_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
@@ -11,9 +11,9 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../component/data/data.dart';
+import '../../component/data/data.dart';
 
-class LoginParentsProfileProvider with ChangeNotifier {
+class UserLoginParentsProfileProvider with ChangeNotifier {
   bool hideIcon = true;
   final ImagePicker picker = ImagePicker();
   final parentsNickNameKey = GlobalKey<FormState>();
@@ -50,7 +50,7 @@ class LoginParentsProfileProvider with ChangeNotifier {
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     final roleGetData = Provider.of<RoleProvider>(context, listen: false);
-    final signUpGetData = Provider.of<SignUpProvider>(context, listen: false);
+    final signUpGetData = Provider.of<UserSignUpProvider>(context, listen: false);
     try {
       await storage.write(key: FIREBASE_TOKEN_KEY, value: user?.uid);
       await FirebaseFirestore.instance.collection('user').doc().set({

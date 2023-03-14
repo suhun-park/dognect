@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kpostal/kpostal.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/kpostal_provider.dart';
+import '../../provider/teacher/kpostal_provider.dart';
 
 
 class KpostalWidget extends StatelessWidget {

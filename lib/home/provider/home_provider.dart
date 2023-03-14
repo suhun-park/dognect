@@ -18,8 +18,8 @@ class HomeProvider with ChangeNotifier{
 
     return userImage;
   }
-  void customDateChange() {
-    formatData = DateFormat('yyyy-MM-dd').format(customDateTime!).toString();
-  }
 
+  void customDateChange() {
+    formatData = DateFormat('yyyy.MM.dd EEEE','ko').format(customDateTime!).toString();
+  }
 }

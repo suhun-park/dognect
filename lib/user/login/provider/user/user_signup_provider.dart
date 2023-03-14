@@ -1,11 +1,14 @@
-import 'package:dognect/user/login/view/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpProvider with ChangeNotifier {
+import '../../view/user/user_signup_screen.dart';
+
+
+
+class UserSignUpProvider with ChangeNotifier {
 
   final emailChangedFormKey = GlobalKey<FormState>();
   final pwdChangedFormKey = GlobalKey<FormState>();
@@ -113,7 +116,7 @@ class SignUpProvider with ChangeNotifier {
       if (FirebaseAuth.instance.currentUser?.emailVerified == true) {
         print(user?.uid);
         if(context.mounted) {
-          return context.go('/loginParentsProfileScreen');
+          return context.go('/userLoginParentsProfileScreen');
         }
       } else {
         return;

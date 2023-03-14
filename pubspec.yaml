@@ -46,7 +46,15 @@ dependencies:
   firebase_auth_token:
   flutter_screenutil: ^5.6.1
   firebase_storage:
-  date_format: 
+  date_format:
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  carousel_slider: ^4.2.1
+  carousel_indicator: ^1.0.6
+  flutter_speed_dial: ^6.2.0
+  table_calendar: ^3.0.8
+  modal_bottom_sheet: ^2.1.2
 
 
   # The following adds the Cupertino Icons font to your application.

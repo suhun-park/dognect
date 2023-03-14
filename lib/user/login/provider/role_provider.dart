@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dognect/user/login/view/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,10 +32,10 @@ class RoleProvider with ChangeNotifier {
   }
   void roleChoice(BuildContext context) {
     if(dropDownValue == roleData.first) {
-      context.push('/signUpScreen',extra:dropDownValue);
+      context.push('/userSignUpScreen',extra:dropDownValue);
     }
-      else{
-        context.push('/loginParentsFirstScreen');
+      else if(dropDownValue == roleData.last){
+        context.push('/teacherSignUpScreen');
       }
     }
   }

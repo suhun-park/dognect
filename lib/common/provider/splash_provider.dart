@@ -18,7 +18,7 @@ class SplashProvider with ChangeNotifier{
 
   void checkToken(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context,listen: false);
-    userProvider.userDataGet();
+    await userProvider.userDataGet();
     OAuthToken? token = await TokenManagerProvider.instance.manager.getToken();
 
     if (token?.refreshToken != null) {
