@@ -7,3 +7,11 @@ const BODY_TEXT_COLOR= Color(0xFF383838);
 const INPUT_BG_COLOR = Color(0xFF99D750);
 const TEXT_FORM_COLOR = Color(0xFFF5F5F5);
 const WEEK_BOTTOMNAVIGATION_COLOR = Color(0xFF8FCEB3);
+
+//Modal Bottom Color
+
+const FIRST_COLOR = Color(0xFFE82108);
+const SECOND_COLOR = Color(0xFF084FE8);
+const THIRD_COLOR = Color(0xFF08E8AC);
+const FOUR_COLOR = Color(0xFF8308E8);
+const FIVE_COLOR = Color(0xFF08E8BF);

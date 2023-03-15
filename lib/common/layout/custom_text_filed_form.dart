@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/data/color.dart';
+import '../data/color.dart';
 
 class CustomTextFieldForm extends StatelessWidget {
 
@@ -13,8 +13,11 @@ class CustomTextFieldForm extends StatelessWidget {
   final TextInputType? keyboardType;
   final Key? globalKey;
   final String? Function(String?)? validator;
+  final int? maxLines;
+  final TextEditingController? controller;
 
   const CustomTextFieldForm({
+    this.controller,
     this.validator,
     this.globalKey,
     this.keyboardType,
@@ -23,6 +26,7 @@ class CustomTextFieldForm extends StatelessWidget {
     this.errorText,
     this.obscureText = false,
     this.autofocus = false,
+    this.maxLines,
     Key? key, }) : super(key: key);
 
 
@@ -31,12 +35,13 @@ class CustomTextFieldForm extends StatelessWidget {
     return Form(
       key: globalKey,
       child: TextFormField(
-        //비밀번호 작성할 때
+        controller: controller,
+        maxLines: maxLines,
           keyboardType: keyboardType,
         obscureText: obscureText,
         autofocus: autofocus,
         cursorColor: MY_COLOR,
-        onSaved: onChanged,
+        onChanged: onChanged,
         validator: validator,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(20),

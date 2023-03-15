@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/data/color.dart';
-import '../component/layout/custom_text_filed_form.dart';
+import '../../../common/layout/custom_text_filed_form.dart';
 import '../component/layout/login_button_layout.dart';
 import '../provider/login_first_provider.dart';
 

@@ -18,7 +18,7 @@ class CalendarWidget extends StatelessWidget {
           child: TableCalendar(
             firstDay:DateTime.utc(2000,01,01),
             lastDay:DateTime.utc(2099,01,01),
-            focusedDay:calendarProvider.selectedDay,
+            focusedDay:DateTime.now(),
             locale: 'ko-kr',
             headerStyle: const HeaderStyle(
               formatButtonVisible: false,

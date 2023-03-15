@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarProvider with ChangeNotifier {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  String selectChangedDay = '';
   CalendarFormat calendarFormat = CalendarFormat.month;
 
   void calendarDayMangeMent(DateTime selectDay, DateTime focusDay) {
     selectedDay = selectDay;
     focusedDay = focusDay;
+    selectChangedDay = DateFormat('yyyy-MM-dd').format(focusedDay);
+
     notifyListeners();
   }
 

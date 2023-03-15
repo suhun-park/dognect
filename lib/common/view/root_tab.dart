@@ -74,19 +74,19 @@ class RootTab extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈',),
           BottomNavigationBarItem(
-              icon: Icon(Icons.note_alt_outlined), label: '게시판'),
+              icon: Icon(Icons.note_alt_outlined), label: '알림장'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person,), label: '내정보'),
-          BottomNavigationBarItem(icon: Icon(Icons.note_alt_outlined),label: '알림장'),
+              icon: Icon(Icons.assignment,), label: '게시판'),
+          BottomNavigationBarItem(icon: Icon(Icons.person),label: '내정보'),
         ],
       ),
       body: IndexedStack(
         index: rootTabController.controllerIndex,
         children:const [
           HomeScreen(),
+          Center(child: Text("알림장"),),
           Center(child: Text("게시판"),),
           Center(child: Text("내정보"),),
-          Center(child: Text("알림장"),),
         ],
       ),
     );
