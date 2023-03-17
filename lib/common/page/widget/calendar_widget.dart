@@ -28,7 +28,7 @@ class CalendarWidget extends StatelessWidget {
                 fontSize: 16.0,
               ),
             ),
-            onDaySelected: (DateTime selectDay,DateTime focusDay) => calendarProvider.calendarDayMangeMent(selectDay, focusDay),
+            onDaySelected: (DateTime selectDay,DateTime focusDay) => calendarProvider.calendarDayMangeMent(selectDay, focusDay,context),
             selectedDayPredicate: (day) => isSameDay(calendarProvider.selectedDay,day),
             calendarFormat: calendarProvider.calendarFormat,
             onFormatChanged:(format) => calendarProvider.onFormatChanged(format),
@@ -51,7 +51,6 @@ class CalendarWidget extends StatelessWidget {
               outsideDecoration: const BoxDecoration(
                 shape: BoxShape.rectangle,
               ),
-
             ),
             calendarBuilders: CalendarBuilders(
               dowBuilder: (context, day) => calendarProvider.calendarDayChange(context, day)

@@ -1,6 +1,7 @@
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:dognect/common/data/color.dart';
 import 'package:dognect/common/view/root_tab.dart';
+import 'package:dognect/home/layout/drawble_layout.dart';
 import 'package:dognect/home/layout/tab_button_layout.dart';
 import 'package:dognect/home/widget/ad_carousel_slider_widget.dart';
 import 'package:dognect/home/provider/home_provider.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:provider/provider.dart';
 
@@ -30,14 +32,78 @@ class _HomeScreenState extends State<HomeScreen> {
     homeProvider.customDateChange();
 
   }
-  @override
-
+  final GlobalKey<ScaffoldState> _drawer = GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
     final userDataProvider = Provider.of<UserProvider>(context);
     final homeProvider = Provider.of<HomeProvider>(context);
     homeProvider.customDateChange();
     return Scaffold(
+      key: _drawer,
       backgroundColor: BACKGROUND_COLOR,
+      drawer:Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                color: BOTTOMNAVIGATION_COLOR,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40.0),
+                  bottomRight: Radius.circular(40.0),
+                ),
+              ),
+              accountName: Text(userDataProvider.userMyModelData[0].nickName!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),), //수정 값을 받아와야함
+              accountEmail: Text(userDataProvider.userMyModelData[0].userEmail!,style: TextStyle(fontSize: 15),), //수정 값을 받아야함
+              onDetailsPressed: (){ //펼쳐지게끔
+                print('arrow is clicked');
+              },
+              currentAccountPicture:  FutureBuilder<String>( //이미지 데이터 가져오기
+                  future: homeProvider.getUserImage(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("error");
+                    } else if (snapshot.hasData) {
+                      return Container(
+                        width: 63.w, height: 60.h,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(snapshot.data!,
+                              ),
+                            )
+                        ),
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  }),
+            ),
+            ListTile(
+              leading: Icon(Icons.home,color: Colors.grey[850],),
+              title: Text('홈'),
+              onTap: (){
+                context.pop();
+              },
+              trailing: Icon(Icons.add),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings,color: Colors.grey[850],),
+              title: Text('설정'),
+              onTap: (){},
+
+              trailing: Icon(Icons.add),
+            ),
+            ListTile(
+              leading: Icon(Icons.question_answer,color: Colors.grey[850],),
+              title: Text('FAQ'),
+              onTap: (){
+                print('QnA is clicked');
+              },
+              trailing: Icon(Icons.add),
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Column(
             children: [
@@ -49,19 +115,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (snapshot.hasError) {
                           return Text("error");
                         } else if (snapshot.hasData) {
-                          return InkWell(
-                            onTap: (){} , //수정부분
-                            child: Container(
-                              margin: EdgeInsets.fromLTRB(35.w, 5.h, 0,0),
-                              width: 63.w, height: 60.h,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(snapshot.data!,
-                                    ),
-                                  )
-                              ),
+                          return Container(
+                            margin: EdgeInsets.fromLTRB(35.w, 5.h, 0,0),
+                            width: 63.w, height: 60.h,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(snapshot.data!,
+                                  ),
+                                )
+                            ),
+                            child: InkWell(
+                              onTap: (){_drawer.currentState?.openDrawer();},
                             ),
                           );
                         }

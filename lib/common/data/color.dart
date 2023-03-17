@@ -14,4 +14,4 @@ const FIRST_COLOR = Color(0xFFE82108);
 const SECOND_COLOR = Color(0xFF084FE8);
 const THIRD_COLOR = Color(0xFF08E8AC);
 const FOUR_COLOR = Color(0xFF8308E8);
-const FIVE_COLOR = Color(0xFF08E8BF);
+const FIVE_COLOR = Color(0xFFF5F103);

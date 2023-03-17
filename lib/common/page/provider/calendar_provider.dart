@@ -1,18 +1,36 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../../user/login/component/data/data.dart';
+import '../../../user/provider/user_provider.dart';
+import '../model/memo_model.dart';
 
 class CalendarProvider with ChangeNotifier {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   String selectChangedDay = '';
+  List<MemoModel> memoModelData = [];
   CalendarFormat calendarFormat = CalendarFormat.month;
+  final StreamController<List<MemoModel>> _controller = StreamController.broadcast();
+  Stream<List<MemoModel>> get memoDataStream => _controller.stream;
+  Map<DateTime,List> events = {};
+  DateTime dateParse = DateTime.now();
 
-  void calendarDayMangeMent(DateTime selectDay, DateTime focusDay) {
+
+  void calendarDayMangeMent(DateTime selectDay, DateTime focusDay,BuildContext context) {
     selectedDay = selectDay;
     focusedDay = focusDay;
-    selectChangedDay = DateFormat('yyyy-MM-dd').format(focusedDay);
+    notifyListeners();
+    selectChangedDay = DateFormat('yyyy-MM-dd EEEE','ko').format(focusedDay);
+    print(selectChangedDay);
+    getMemoData(context);
 
     notifyListeners();
   }
@@ -41,4 +59,34 @@ class CalendarProvider with ChangeNotifier {
     calendarFormat = format;
     notifyListeners();
 }
+  Future<List<MemoModel>> getMemoData(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final storage = FlutterSecureStorage();
+    CollectionReference<Map<String, dynamic>> collectionReference =
+    FirebaseFirestore.instance.collection("memo");
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+    await collectionReference.where('uid', isEqualTo: await userProvider.userMyModelData[0].uid,).where('dateTime',isEqualTo: selectChangedDay).orderBy('firstTime').get();
+    memoModelData.clear();
+    for (var element in querySnapshot.docs) {
+      memoModelData.add(MemoModel.fromJson(element.data()));
+    }
+    notifyListeners();
+    return memoModelData;
+  }
+  void init(BuildContext context) async {
+    calendarDayMangeMent(selectedDay,focusedDay,context);
+    await getMemoData(context);
+  }
+  void memoEventFunction() {
+    for(var memo in memoModelData) {
+      dateParse = DateTime.parse(memo.dateTime.toString());
+    }
+    print(dateParse);
+  }
+
+  @override
+  void dispose() {
+    _controller.close();
+    super.dispose();
+  }
 }

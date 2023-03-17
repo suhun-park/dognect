@@ -49,7 +49,7 @@ class RootTab extends StatelessWidget {
           SpeedDialChild(
               key: UniqueKey(),
               backgroundColor: WEEK_BOTTOMNAVIGATION_COLOR,
-              child: Icon(Icons.add,color: Colors.white,),
+              child: Icon(Icons.camera_alt,color: Colors.white,),
               shape: CircleBorder(
                   side: BorderSide(
                     color: Colors.white,
