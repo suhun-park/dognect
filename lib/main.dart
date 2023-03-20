@@ -7,6 +7,8 @@ import 'package:dognect/common/provider/tab_pvrovider.dart';
 import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/common/view/root_tab.dart';
 import 'package:dognect/home/provider/home_provider.dart';
+import 'package:dognect/notice/provider/notice_calendar_provider.dart';
+import 'package:dognect/notice/provider/notice_provider.dart';
 import 'package:dognect/user/login/provider/teacher/kpostal_provider.dart';
 import 'package:dognect/user/login/provider/login_first_provider.dart';
 import 'package:dognect/user/login/provider/role_provider.dart';
@@ -60,6 +62,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => TeacherCarouselSliderProvider()),
         ChangeNotifierProvider(create: (_) => CalendarProvider()),
         ChangeNotifierProvider(create: (_) => ModalBottomSheetProvider()),
+        ChangeNotifierProvider(create: (_) => NoticeCalendarProvider()),
+        ChangeNotifierProvider(create: (_) => NoticeProvider()),
       ],child:MyApp()));
 }
 

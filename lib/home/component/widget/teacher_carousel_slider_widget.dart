@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../user/model/teacher_model.dart';
+import '../../../user/model/teacher_model.dart';
+
 
 class TeacherCarouselSliderWidget extends StatelessWidget {
   const TeacherCarouselSliderWidget({Key? key}) : super(key: key);

@@ -36,6 +36,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       floatingActionButton: ModalBottomSheetWidget(),
       backgroundColor: BACKGROUND_COLOR,
       appBar: AppBar(
+        backgroundColor: BOTTOMNAVIGATION_COLOR,
         title: Text('달력'),
       ),
       body: SingleChildScrollView(

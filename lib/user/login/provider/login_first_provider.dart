@@ -89,7 +89,7 @@ class LoginFirstProvider with ChangeNotifier {
     OAuthToken? token = await TokenManagerProvider.instance.manager.getToken();
     if (token != null && userProvider.userMyModelData.isNotEmpty) {
       try {
-        context.go('/homeScreen');
+        context.go('/rootTab');
       } catch (e) {
         return null;
       }

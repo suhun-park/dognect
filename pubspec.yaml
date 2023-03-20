@@ -56,6 +56,7 @@ dependencies:
   table_calendar: ^3.0.8
   modal_bottom_sheet: ^2.1.2
   time_picker_widget: ^1.0.0+10
+  calendar_timeline: ^1.1.2
 
 
   # The following adds the Cupertino Icons font to your application.

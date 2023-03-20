@@ -7,6 +7,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../home/view/home_screen.dart';
+import '../../notice/view/notice_screen.dart';
 import '../layout/default_layout.dart';
 
 
@@ -84,7 +85,7 @@ class RootTab extends StatelessWidget {
         index: rootTabController.controllerIndex,
         children:const [
           HomeScreen(),
-          Center(child: Text("알림장"),),
+          NoticeScreen(),
           Center(child: Text("게시판"),),
           Center(child: Text("내정보"),),
         ],

@@ -5,6 +5,7 @@ class UserModel {
   String? userEmail;
   String? userPwd;
   String? uid;
+  String? kinderGarden;
 
   UserModel({
     required this.nickName,
@@ -13,6 +14,7 @@ class UserModel {
     required this.userEmail,
     required this.userPwd,
     required this.uid,
+    required this.kinderGarden,
 
   });
 
@@ -23,6 +25,7 @@ class UserModel {
     userPwd = json['userPwd'];
     role = json['role'];
     uid = json['uid'];
+    kinderGarden = json['kinderGarden'];
 
   }
 
@@ -34,6 +37,7 @@ class UserModel {
     userPwd = data['userPwd'];
     role = data['role'];
     uid = data['uid'];
+    kinderGarden = data['kinderGarden'];
 
     return data;
   }

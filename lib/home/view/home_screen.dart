@@ -1,9 +1,7 @@
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:dognect/common/data/color.dart';
 import 'package:dognect/common/view/root_tab.dart';
-import 'package:dognect/home/layout/drawble_layout.dart';
-import 'package:dognect/home/layout/tab_button_layout.dart';
-import 'package:dognect/home/widget/ad_carousel_slider_widget.dart';
+
 import 'package:dognect/home/provider/home_provider.dart';
 import 'package:dognect/user/provider/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +12,11 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:provider/provider.dart';
 
+import '../component/layout/tab_button_layout.dart';
+import '../component/widget/ad_carousel_slider_widget.dart';
+import '../component/widget/teacher_carousel_slider_widget.dart';
 import '../provider/ad_carousel_slider_provider.dart';
-import '../widget/teacher_carousel_slider_widget.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 

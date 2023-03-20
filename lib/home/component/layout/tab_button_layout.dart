@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/data/color.dart';
+import '../../../common/data/color.dart';
 
 class TabButtonLayout extends StatelessWidget {
   const TabButtonLayout({Key? key}) : super(key: key);
