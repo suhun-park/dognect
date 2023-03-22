@@ -26,7 +26,7 @@ class SplashProvider with ChangeNotifier{
         await storage.write(key: ACCESS_TOKEN_KEY, value: token?.accessToken);
         if(userProvider.userMyModelData.isNotEmpty){
           try {
-            context.go('/loginFirstScreen'); // 수정
+            context.go('/rootTab'); // 수정
           }catch(e){
             context.pop(); //로그인 에러
           }

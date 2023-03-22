@@ -32,7 +32,7 @@ import '../provider/login_first_provider.dart';
                         height: 250.h,
                         child: Image.asset('assets/img/splash.png')),
                     Container(
-                      margin:  EdgeInsets.fromLTRB(0, 20.h, 0, 0),
+                      margin:  EdgeInsets.only(top: 20.h),
                       child:  Text(
                         "애완견과 함께 유치원을 다녀볼까요?",
                         style: TextStyle(
@@ -41,64 +41,53 @@ import '../provider/login_first_provider.dart';
                       ),
                     ),
                      SizedBox(
-                      height: 10.h,
+                      height: 25.h,
                     ),
 
-                    Container(
-                      color: Colors.black,
-                      height: 250.h,
-                      width: 300.w,
-                      child: Column(
-                        children: [
-                          CustomTextFieldForm(
-                            globalKey: getData.emailFormKey,
-                            onChanged: (value) => getData.emailController(value),
-                            hintText: '이메일 입력',
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) =>getData.emailValidator(value),
-                          ),
-                          CustomTextFieldForm(
-                            globalKey: getData.pwdFormKey,
-                            onChanged: (value) => getData.pwdController(value),
-                            hintText: '비밀번호 입력',
-                            keyboardType: TextInputType.visiblePassword,
-                            validator: (value) => getData.pwdValidator(value),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                  onPressed: () {},
-                                  child:  Text(
-                                    '아이디 찾기',
-                                    style: TextStyle(
-                                        fontSize: 16.sp, color: BODY_TEXT_COLOR),
-                                  )),
-                              TextButton(
-                                  onPressed: () {},
-                                  child:  Text(
-                                    '비밀번호 찾기',
-                                    style: TextStyle(
-                                        fontSize: 16.sp, color: BODY_TEXT_COLOR),
-                                  )),
-                              TextButton(
-                                  onPressed: () {
-                                    context.go('/loginChoiceRoleScreen') ;
-                                  },
+                    CustomTextFieldForm(
+                      globalKey: getData.emailFormKey,
+                      onChanged: (value) => getData.emailController(value),
+                      hintText: '이메일 입력',
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) =>getData.emailValidator(value),
+                    ),
+                    CustomTextFieldForm(
+                      globalKey: getData.pwdFormKey,
+                      onChanged: (value) => getData.pwdController(value),
+                      hintText: '비밀번호 입력',
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: (value) => getData.pwdValidator(value),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                            onPressed: () {},
+                            child:  Text(
+                              '아이디 찾기',
+                              style: TextStyle(
+                                  fontSize: 16.sp, color: BODY_TEXT_COLOR),
+                            )),
+                        TextButton(
+                            onPressed: () {},
+                            child:  Text(
+                              '비밀번호 찾기',
+                              style: TextStyle(
+                                  fontSize: 16.sp, color: BODY_TEXT_COLOR),
+                            )),
+                        TextButton(
+                            onPressed: () {
+                              context.go('/loginChoiceRoleScreen') ;
+                            },
 
-                                  child:  Text(
-                                    '회원가입하기',
-                                    style: TextStyle(
-                                        fontSize: 16.sp, color: BODY_TEXT_COLOR),
-                                  )),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),SizedBox(
+                            child:  Text(
+                              '회원가입하기',
+                              style: TextStyle(
+                                  fontSize: 16.sp, color: BODY_TEXT_COLOR),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
                       height: 10.h,
                     ),
                     SizedBox(
@@ -115,9 +104,9 @@ import '../provider/login_first_provider.dart';
                                 fontWeight: FontWeight.bold
                             ),
                           ),)),
-                     SizedBox(height: 20.h,),
+                     SizedBox(height: 50.h,),
                      Text('SNS로그인',style: TextStyle(fontSize: 24.sp,fontFamily: 'NanumGothic',fontWeight: FontWeight.w300),),
-                     SizedBox(height: 10.h,),
+                     SizedBox(height: 50.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

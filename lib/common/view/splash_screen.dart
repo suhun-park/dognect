@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: 12.0,),
             Text("Dog Note",style: TextStyle(fontSize: 100,fontWeight: FontWeight.bold,fontFamily: 'fonts'),),
             CircularProgressIndicator(
-              color: Colors.white,
+              color: Colors.black,
             )
           ],
         )));

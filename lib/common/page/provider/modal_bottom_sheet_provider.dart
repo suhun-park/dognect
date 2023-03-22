@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class ModalBottomSheetProvider with ChangeNotifier{
 
   List<Color> colorSelect = [FIRST_COLOR,SECOND_COLOR,THIRD_COLOR,FOUR_COLOR,FIVE_COLOR];
-  List<String> colorName = ['빨간색','파랑색','연초록색','보랑색','노랑색'];
+  List<String> colorName = ['빨간색','파랑색','연초록색','보라색','노랑색'];
   TextEditingController memoController = TextEditingController();
   String userColor = '';
   String userColorName = '';

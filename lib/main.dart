@@ -33,6 +33,7 @@ import 'common/page/provider/calendar_provider.dart';
 import 'firebase_options.dart';
 import 'home/provider/teacher_carousel_slider_provider.dart';
 import 'home/view/home_screen.dart';
+import 'notice/page/provider/notice_detail_provider.dart';
 
 void main() async {
   KakaoSdk.init(
@@ -64,6 +65,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ModalBottomSheetProvider()),
         ChangeNotifierProvider(create: (_) => NoticeCalendarProvider()),
         ChangeNotifierProvider(create: (_) => NoticeProvider()),
+        ChangeNotifierProvider(create: (_) => NoticeDetailProvider()),
       ],child:MyApp()));
 }
 

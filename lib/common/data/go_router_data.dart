@@ -1,11 +1,15 @@
 import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/home/view/home_screen.dart';
+import 'package:dognect/notice/page/page/notice_detail_write_screen.dart';
+import 'package:dognect/notice/page/view/notice_detail_screen.dart';
 import 'package:dognect/user/login/provider/teacher/teacher_signup_provider.dart';
 import 'package:dognect/user/login/view/login_choice_role_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 
+import '../../notice/page/view/album_detail_screen.dart';
+import '../../notice/page/view/teacher_talk_detail_screen.dart';
 import '../../user/login/view/login_first_screen.dart';
 import '../../user/login/view/teacher/teacher_signup_screen.dart';
 import '../../user/login/view/user/user_login_parents_profile_screen.dart';
@@ -67,5 +71,30 @@ class RouterData extends ChangeNotifier {
         return const CalendarScreen();
       },
     ),
+    GoRoute(
+      path: '/noticeDetailScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const NoticeDetailScreen();
+      },
+    ),
+    GoRoute(
+      path: '/teacherTalkDetailScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const TeacherTalkDetailScreen();
+      },
+    ),
+    GoRoute(
+      path: '/albumDetailScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const AlbumDetailScreen();
+      },
+    ),
+    GoRoute(
+      path: '/noticeDetailWriteScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const NoticeDetailWriteScreen();
+      },
+    ),
+
   ]);
 }

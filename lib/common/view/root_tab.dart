@@ -1,5 +1,6 @@
 import 'package:dognect/common/data/color.dart';
 import 'package:dognect/common/provider/tab_pvrovider.dart';
+import 'package:dognect/myuser/view/my_user_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,36 +26,36 @@ class RootTab extends StatelessWidget {
         shape: CircleBorder(
             side: BorderSide(
               color: BOTTOMNAVIGATION_COLOR,
-              width: 3.0,
+              width: 3.0.w,
             )
         ),
-        buttonSize: Size(60.0.sp,60.0.sp),
+        childrenButtonSize: Size(80.w, 80.h),
         visible: true,
         backgroundColor: Colors.white,
-        childrenButtonSize: Size(80.0.sp,80.0.sp),
-        childPadding: EdgeInsets.only(bottom: 20.h),
+
+        childPadding: EdgeInsets.fromLTRB(0,0,0,20.h),
         elevation: 0,
-        iconTheme: IconThemeData(color: BOTTOMNAVIGATION_COLOR),
+        iconTheme: const IconThemeData(color: BOTTOMNAVIGATION_COLOR),
         children: [
           SpeedDialChild(
             key: UniqueKey(),
               backgroundColor: WEEK_BOTTOMNAVIGATION_COLOR,
-              child: Icon(Icons.calendar_month,color: Colors.white,),
+              child: const Icon(Icons.calendar_month,color: Colors.white,),
               shape: CircleBorder(
                   side: BorderSide(
                     color: Colors.white,
-                    width: 3.0,
+                    width: 3.0.w,
                   ),
               ),
               onTap:() => context.push('/calendarScreen')),
           SpeedDialChild(
               key: UniqueKey(),
               backgroundColor: WEEK_BOTTOMNAVIGATION_COLOR,
-              child: Icon(Icons.camera_alt,color: Colors.white,),
+              child: const Icon(Icons.camera_alt,color: Colors.white,),
               shape: CircleBorder(
                   side: BorderSide(
                     color: Colors.white,
-                    width: 3.0,
+                    width: 3.0.w,
                   )
               ),
               onTap:() {}),
@@ -87,7 +88,7 @@ class RootTab extends StatelessWidget {
           HomeScreen(),
           NoticeScreen(),
           Center(child: Text("게시판"),),
-          Center(child: Text("내정보"),),
+          MyUserScreen(),
         ],
       ),
     );

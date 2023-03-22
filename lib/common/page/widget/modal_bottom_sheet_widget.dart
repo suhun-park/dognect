@@ -119,6 +119,7 @@ class ModalBottomSheetWidget extends StatelessWidget {
                             ),
                             Container(
                               height: 30.h,
+
                               margin: EdgeInsets.only(left: 10.w),
                               alignment: Alignment.center,
                               child:  Text("메모하기",style: TextStyle(color: Colors.cyan),),
@@ -126,6 +127,7 @@ class ModalBottomSheetWidget extends StatelessWidget {
                             Container(
                               margin: const EdgeInsets.fromLTRB(10,0,10,0),
                               height: 150.h,
+                              width: double.infinity,
                               decoration: BoxDecoration(
                                 border: Border.all(width: 1,color: Colors.cyan),
                                 color: BACKGROUND_COLOR,
