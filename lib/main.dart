@@ -7,8 +7,11 @@ import 'package:dognect/common/provider/tab_pvrovider.dart';
 import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/common/view/root_tab.dart';
 import 'package:dognect/home/provider/home_provider.dart';
+import 'package:dognect/notice/page/provider/album_detail_provider.dart';
+import 'package:dognect/notice/page/provider/teacher_talk_detail_provider.dart';
 import 'package:dognect/notice/provider/notice_calendar_provider.dart';
 import 'package:dognect/notice/provider/notice_provider.dart';
+import 'package:dognect/user/login/kakao/provider/kakao_user_check_provider.dart';
 import 'package:dognect/user/login/provider/teacher/kpostal_provider.dart';
 import 'package:dognect/user/login/provider/login_first_provider.dart';
 import 'package:dognect/user/login/provider/role_provider.dart';
@@ -31,8 +34,8 @@ import 'package:provider/provider.dart';
 
 import 'common/page/provider/calendar_provider.dart';
 import 'firebase_options.dart';
-import 'home/provider/teacher_carousel_slider_provider.dart';
 import 'home/view/home_screen.dart';
+import 'myuser/provider/my_user_provider.dart';
 import 'notice/page/provider/notice_detail_provider.dart';
 
 void main() async {
@@ -43,6 +46,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
 
   runApp(MultiProvider(
       providers: [
@@ -60,12 +64,15 @@ void main() async {
         ChangeNotifierProvider(create: (_) => AdCarouselSliderProvider()),
         ChangeNotifierProvider(create: (_) => TeacherProvider()),
         ChangeNotifierProvider(create: (_) => TeacherSignupProvider()),
-        ChangeNotifierProvider(create: (_) => TeacherCarouselSliderProvider()),
         ChangeNotifierProvider(create: (_) => CalendarProvider()),
         ChangeNotifierProvider(create: (_) => ModalBottomSheetProvider()),
         ChangeNotifierProvider(create: (_) => NoticeCalendarProvider()),
         ChangeNotifierProvider(create: (_) => NoticeProvider()),
         ChangeNotifierProvider(create: (_) => NoticeDetailProvider()),
+        ChangeNotifierProvider(create: (_) => AlbumDetailProvider()),
+        ChangeNotifierProvider(create: (_) => TeacherTalkDetailProvider()),
+        ChangeNotifierProvider(create: (_)=>KakaoUserCheckProvider()),
+        ChangeNotifierProvider(create: (_) => MyUserProvider()),
       ],child:MyApp()));
 }
 

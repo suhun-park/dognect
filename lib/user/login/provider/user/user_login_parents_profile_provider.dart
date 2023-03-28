@@ -52,12 +52,10 @@ class UserLoginParentsProfileProvider with ChangeNotifier {
     final roleGetData = Provider.of<RoleProvider>(context, listen: false);
     final signUpGetData = Provider.of<UserSignUpProvider>(context, listen: false);
     try {
-      await storage.write(key: FIREBASE_TOKEN_KEY, value: user?.uid);
       await FirebaseFirestore.instance.collection('user').doc().set({
         'petName': signUpGetData.petNameValue,
         'role': roleGetData.dropDownValue,
         'userEmail': signUpGetData.emailValue,
-        'userImage': imageFile?.path,
         'userPwd': signUpGetData.pwdValue,
         'nickName': nickNameValue,
         'uid': user?.uid,
@@ -77,6 +75,7 @@ class UserLoginParentsProfileProvider with ChangeNotifier {
     } catch(e){
       print(e);
     }
-    return context.go('/homeScreen');
+    notifyListeners();
+    return context.go('/loginFirstScreen');
   }
 }

@@ -20,98 +20,94 @@ class UserSignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customWidth = MediaQuery.of(context).size.width;
-    final customHeight = MediaQuery.of(context).size.height;
     final getData = Provider.of<UserSignUpProvider>(context);
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/img/splash.png',
-                width: 43.w,
-                height: 93.h,
-              ),
-              SizedBox(
-                height: 18.64.h,
-              ),
-              SizedBox(
-                height: 46.6.h,
-              ),
-              SizedBox(
-                width: customWidth * 0.95,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        '회원님의 이름',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      Gap(10),
-                      SignUpTextForm(
-                        globalKey: getData.nameChangedFormKey,
-                        onChanged: (value) =>
-                            getData.nameChangedController(value),
-                        hintText: "이름을 입력해주세요",
-                        validator: (value) => getData.nameValidate(value),
-                      ),
-                      Gap(30),
-                      const Text(
-                        '애완견 이름',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      Gap(10),
-                      SignUpTextForm(
-                        globalKey: getData.petNameChangedFormKey,
-                        onChanged: (value) =>
-                            getData.petNameChangedController(value),
-                        hintText: "애완견의 이름을 입력해주세요",
-                        validator: (value) => getData.petNameValidate(value),
-                      ),
-                      const Gap(30),
-                      Text(
-                        '이메일',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      Gap(10),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(onPressed: (){context.pop();}, icon: Icon(Icons.arrow_back))),
+                Image.asset(
+                  'assets/img/splash.png',
+                  width: 50.w,
+                  height: 50.h,
+                ),
+                SizedBox(
+                  height: 50.h,
+                ),
+                SizedBox(
+                  width: 400.w,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         Text(
+                          '회원님의 이름',
+                          style: TextStyle(fontSize: 30.sp),
+                        ),
+                        Gap(10),
+                        SignUpTextForm(
+                          globalKey: getData.nameChangedFormKey,
+                          onChanged: (value) =>
+                              getData.nameChangedController(value),
+                          hintText: "이름을 입력해주세요",
+                          validator: (value) => getData.nameValidate(value),
+                        ),
+                        Gap(30),
+                         Text(
+                          '애완견 이름',
+                          style: TextStyle(fontSize: 30.sp),
+                        ),
+                        Gap(10),
+                        SignUpTextForm(
+                          globalKey: getData.petNameChangedFormKey,
+                          onChanged: (value) =>
+                              getData.petNameChangedController(value),
+                          hintText: "애완견의 이름을 입력해주세요",
+                          validator: (value) => getData.petNameValidate(value),
+                        ),
+                        const Gap(30),
+                        Text(
+                          '이메일',
+                          style: TextStyle(fontSize: 30.sp),
+                        ),
+                        Gap(10),
 
-                      SignUpTextForm(
-                              globalKey: getData.emailChangedFormKey,
-                              onChanged: (value) =>
-                                  getData.emailChangedController(value),
-                              hintText: "이메일을 입력해주세요",
-                              validator: (value) =>getData.emailValidate(value),
-                            ),
-                          SizedBox(width: customWidth * 0.03),
-                      Gap(10),
-                      const Text(
-                        '비밀번호',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      Gap(10),
-                      SignUpTextForm(
-                        globalKey: getData.pwdChangedFormKey,
-                        onChanged: (value) => getData.pwdChangedController(value),
-                        hintText: "비밀번호를 입력해주세요",
-                        validator: (value) => getData.pwdValidate(value),
-                      ),
-                      SizedBox(
-                        height: customHeight * 0.05,
-                      ),
-                      SizedBox(
-                        height: customHeight * 0.05,
-                      ),
-                      TextButton(
-                          onPressed: () => getData.checkFunction(context),
-                          child: getData.isTrueCheck ? const Text(
-                            "확인",
-                            style: TextStyle(fontSize: 25),
-                          ): const Text("인증하기",style: TextStyle(fontSize: 25),)),
-                    ]),
-              ),
-            ],
+                        SignUpTextForm(
+                                globalKey: getData.emailChangedFormKey,
+                                onChanged: (value) =>
+                                    getData.emailChangedController(value),
+                                hintText: "이메일을 입력해주세요",
+                                validator: (value) =>getData.emailValidate(value),
+                              ),
+                        Gap(30),
+                         Text(
+                          '비밀번호',
+                          style: TextStyle(fontSize: 30.sp),
+                        ),
+                        Gap(10),
+                        SignUpTextForm(
+                          globalKey: getData.pwdChangedFormKey,
+                          onChanged: (value) => getData.pwdChangedController(value),
+                          hintText: "비밀번호를 입력해주세요",
+                          validator: (value) => getData.pwdValidate(value),
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        TextButton(
+                            onPressed: () => getData.checkFunction(context),
+                            child: getData.isTrueCheck ?  Text(
+                              "확인",
+                              style: TextStyle(fontSize: 25.sp),
+                            ):  Text("인증하기",style: TextStyle(fontSize: 30.sp),)),
+                      ]),
+                ),
+              ],
+            ),
           ),
         ),
         ),

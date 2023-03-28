@@ -2,6 +2,7 @@ import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/home/view/home_screen.dart';
 import 'package:dognect/notice/page/page/notice_detail_write_screen.dart';
 import 'package:dognect/notice/page/view/notice_detail_screen.dart';
+import 'package:dognect/user/login/kakao/view/kakao_user_signup_screen.dart';
 import 'package:dognect/user/login/provider/teacher/teacher_signup_provider.dart';
 import 'package:dognect/user/login/view/login_choice_role_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -93,6 +94,12 @@ class RouterData extends ChangeNotifier {
       path: '/noticeDetailWriteScreen',
       builder: (BuildContext context, GoRouterState state) {
         return const NoticeDetailWriteScreen();
+      },
+    ),
+    GoRoute(
+      path: '/kakaoUserSignUpScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const KakaoUserSignUpScreen();
       },
     ),
 

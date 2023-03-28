@@ -1,6 +1,7 @@
 import 'package:dognect/common/data/color.dart';
 import 'package:dognect/common/provider/tab_pvrovider.dart';
 import 'package:dognect/myuser/view/my_user_screen.dart';
+import 'package:dognect/noticeboard/view/notice_board_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -87,7 +88,7 @@ class RootTab extends StatelessWidget {
         children:const [
           HomeScreen(),
           NoticeScreen(),
-          Center(child: Text("게시판"),),
+          NoticeBoardScreen(),
           MyUserScreen(),
         ],
       ),

@@ -14,11 +14,11 @@ class TeacherProvider with ChangeNotifier{
   QuerySnapshot<Map<String, dynamic>> querySnapshot =
   await collectionReference
       .where('TeacherEmail', isEqualTo: kuser?.kakaoAccount?.email).get();
-  teacherModelData.clear();
-  for (var element in querySnapshot.docs) {
-    teacherModelData.add(TeacherModel.fromJson(element.data()));
+  if(teacherModelData.isEmpty) {
+    for (var element in querySnapshot.docs) {
+      teacherModelData.add(TeacherModel.fromJson(element.data()));
+    }
   }
-  print(teacherModelData.length);
   notifyListeners();
   return teacherModelData;
   }

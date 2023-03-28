@@ -1,6 +1,7 @@
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dognect/home/provider/ad_carousel_slider_provider.dart';
+import 'package:dognect/home/provider/tab_button_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,13 +19,15 @@ class _AdCarouselSliderWidgetState extends State<AdCarouselSliderWidget> {
   @override
   Widget build(BuildContext context) {
     final carouselSliderProvider = Provider.of<AdCarouselSliderProvider>(context);
+    final tabButtonProvider = Provider.of<TabButtonProvider>(context);
     return FutureBuilder<List>(
-        future: carouselSliderProvider.getAdvertisement(),
+        future: tabButtonProvider.tabButtonIndex == 0 ? carouselSliderProvider.getAdvertisement() : carouselSliderProvider.getEvent(),
         builder: (BuildContext context, AsyncSnapshot<List>snapshot){
       if(snapshot.hasError){
         return Text('에러');
       }else if(snapshot.hasData){
-        return  Column(children:[CarouselSlider(
+        return  Column(children:[
+          CarouselSlider(
           carouselController: carouselSliderProvider.controller,
           items: snapshot.data!.map((e) => Container(
             width: double.infinity,

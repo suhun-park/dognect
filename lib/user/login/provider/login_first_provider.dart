@@ -1,24 +1,22 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dognect/user/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_user;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:provider/provider.dart';
 
-import '../../provider/user_provider.dart';
 import '../component/data/data.dart';
-import '../kakao/component/kakao_social_login.dart';
-import '../kakao/model/kakao_model.dart';
-import '../view/user/user_login_parents_profile_screen.dart';
-
 
 class LoginFirstProvider with ChangeNotifier {
   final emailFormKey = GlobalKey<FormState>();
   final pwdFormKey = GlobalKey<FormState>();
   String emailLoginValue = '';
   String pwdLoginValue = '';
+  String firebaseUid = '' ;
+  final storage = FlutterSecureStorage();
 
 
   void emailController(value) {
@@ -59,8 +57,8 @@ class LoginFirstProvider with ChangeNotifier {
       return null;
     }
   }
-
   Future<void> loginUserCheckFunction(BuildContext context) async {
+
     if (emailFormKey.currentState?.validate() != false &&
         pwdFormKey.currentState?.validate() != false) {
       final firebase_user.FirebaseAuth auth =
@@ -70,35 +68,21 @@ class LoginFirstProvider with ChangeNotifier {
       try {
         final credential = await firebase_user.FirebaseAuth.instance
             .signInWithEmailAndPassword(
-                email: emailLoginValue, password: pwdLoginValue);
+            email: emailLoginValue, password: pwdLoginValue);
+        final FirebaseAuth auth = FirebaseAuth.instance;
+        User? user = auth.currentUser;
+        await storage.write(key: FIREBASE_TOKEN_KEY, value: credential.user?.uid);
+         context.go('/rootTab');
       } on firebase_user.FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
         } else if (e.code == 'wrong-password') {
           print('Wrong password provided for that user.');
         }
+
       }
     }
   }
 
-  Future<void> kakaoUserCheck(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context,listen: false);
-    final viewModel = KakaoModel(KakaoLogin());
-    await viewModel.login();
-    await userProvider.userDataGet();
-    OAuthToken? token = await TokenManagerProvider.instance.manager.getToken();
-    if (token != null && userProvider.userMyModelData.isNotEmpty) {
-      try {
-        context.go('/rootTab');
-      } catch (e) {
-        return null;
-      }
-    } else if (userProvider.userMyModelData.isEmpty) {
-      try {
-        UserLoginParentsProfileScreen();
-      } catch (e) {
-        print("로그인 할 수 없습니다");
-      }
-    }
-  }
+
 }

@@ -36,8 +36,6 @@ class _NoticeScreenState extends State<NoticeScreen>with TickerProviderStateMixi
   }
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    final noticeProvider = Provider.of<NoticeProvider>(context);
 
 
     return Scaffold(
@@ -55,6 +53,7 @@ class _NoticeScreenState extends State<NoticeScreen>with TickerProviderStateMixi
               controller: _tabBarController,
               tabs: [
                 Container(
+
                   child: Text("알림장"),
                 ),
                 Container(

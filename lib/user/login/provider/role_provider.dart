@@ -15,6 +15,7 @@ class RoleProvider with ChangeNotifier {
     CollectionReference<Map<String, dynamic>> collectionReference = FirebaseFirestore.instance.collection("roles");
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await collectionReference.get();
     roleModelData.clear();
+
     for (var element in querySnapshot.docs) {
       roleModelData.add(RoleModel.fromJson(element.data()));
     }

@@ -8,9 +8,11 @@ class NoticeDetailProvider with ChangeNotifier{
   Future<List<NoticeModel>> noticeDataGet() async {
     CollectionReference<Map<String, dynamic>> collectionReference = FirebaseFirestore.instance.collection("notice");
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await collectionReference.get();
-    noticeModelData.clear();
-    for (var element in querySnapshot.docs) {
-      noticeModelData.add(NoticeModel.fromJson(element.data()));
+
+    if(noticeModelData.isEmpty) {
+      for (var element in querySnapshot.docs) {
+        noticeModelData.add(NoticeModel.fromJson(element.data()));
+      }
     }
     return noticeModelData;
   }

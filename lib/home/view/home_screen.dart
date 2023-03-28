@@ -27,11 +27,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    super.initState();
-    final homeProvider = Provider.of<HomeProvider>(context,listen: false);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final homeProvider = Provider.of<HomeProvider>(context, listen: false);
     homeProvider.customDateChange();
-
   }
   final GlobalKey<ScaffoldState> _drawer = GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
@@ -164,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container( //2열 가로
                 padding: EdgeInsets.only(top: 15.h),
                 margin: EdgeInsets.fromLTRB(35.w, 5.h, 0,0),
-                height: 110.h,
+                height: 120.h,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -194,6 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 10.h,
+              ),
               const TabButtonLayout(),
               SizedBox(
                 height: 30.h,
@@ -212,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 25.h,
               ),
-              const TeacherCarouselSliderWidget(),
+               const TeacherCarouselSliderWidget(),
 
 
             ],
