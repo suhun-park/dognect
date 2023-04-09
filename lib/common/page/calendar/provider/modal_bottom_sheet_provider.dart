@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dognect/common/data/color.dart';
-import 'package:dognect/common/page/provider/calendar_provider.dart';
 import 'package:dognect/user/provider/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
+import 'calendar_provider.dart';
 
 class ModalBottomSheetProvider with ChangeNotifier{
 

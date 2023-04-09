@@ -1,3 +1,4 @@
+import 'package:dognect/common/page/chat_gpt/view/chat_gpt_screen.dart';
 import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/home/view/home_screen.dart';
 import 'package:dognect/notice/page/page/notice_detail_write_screen.dart';
@@ -15,7 +16,7 @@ import '../../user/login/view/login_first_screen.dart';
 import '../../user/login/view/teacher/teacher_signup_screen.dart';
 import '../../user/login/view/user/user_login_parents_profile_screen.dart';
 import '../../user/login/view/user/user_signup_screen.dart';
-import '../page/view/calendar_screen.dart';
+import '../page/calendar/view/calendar_screen.dart';
 import '../view/root_tab.dart';
 
 class RouterData extends ChangeNotifier {
@@ -100,6 +101,12 @@ class RouterData extends ChangeNotifier {
       path: '/kakaoUserSignUpScreen',
       builder: (BuildContext context, GoRouterState state) {
         return const KakaoUserSignUpScreen();
+      },
+    ),
+    GoRoute(
+      path: '/chatGptScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ChatGptScreen();
       },
     ),
 

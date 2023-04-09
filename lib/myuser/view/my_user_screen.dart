@@ -85,13 +85,13 @@ class MyUserScreen extends StatelessWidget {
                               ]),
                         ),
                       ),
-                      ProfileOption(text: '프로필 수정', onClick: () {
+                      ProfileOption(text: '프로필수정', onClick: () {
                       }),
-                      ProfileOption(text: '유치원 변경', onClick: () {}),
-                      ProfileOption(text: '고객 센터', onClick: () {}),
-                      ProfileOption(text: '이용 내역', onClick: () {}),
+                      ProfileOption(text: '유치원변경', onClick: () {}),
+                      ProfileOption(text: '고객센터', onClick: () {}),
+                      ProfileOption(text: '이용내역', onClick: () {}),
                       ProfileOption(text: '공지사항', onClick: () {}),
-                      ProfileOption(text: '약관 및 정책', onClick: () {}),
+                      ProfileOption(text: '약관정책', onClick: () {}),
                       ProfileOption(text: '버전정보', onClick: () {}),
                       ProfileOption(text: '로그아웃', onClick: () => myUserProvider.signOut()),
                     ],

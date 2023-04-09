@@ -1,11 +1,9 @@
 import 'package:dognect/common/data/go_router_data.dart';
-import 'package:dognect/common/page/provider/modal_bottom_sheet_provider.dart';
+import 'package:dognect/common/page/chat_gpt/provider/chat_gpt_provider.dart';
 import 'package:dognect/common/provider/splash_provider.dart';
 import 'package:dognect/home/provider/ad_carousel_slider_provider.dart';
 import 'package:dognect/home/provider/tab_button_provider.dart';
 import 'package:dognect/common/provider/tab_pvrovider.dart';
-import 'package:dognect/common/view/splash_screen.dart';
-import 'package:dognect/common/view/root_tab.dart';
 import 'package:dognect/home/provider/home_provider.dart';
 import 'package:dognect/notice/page/provider/album_detail_provider.dart';
 import 'package:dognect/notice/page/provider/teacher_talk_detail_provider.dart';
@@ -18,23 +16,18 @@ import 'package:dognect/user/login/provider/role_provider.dart';
 import 'package:dognect/user/login/provider/teacher/teacher_signup_provider.dart';
 import 'package:dognect/user/login/provider/user/user_login_parents_profile_provider.dart';
 import 'package:dognect/user/login/provider/user/user_signup_provider.dart';
-import 'package:dognect/user/login/view/teacher/teacher_signup_screen.dart';
 import 'package:dognect/user/provider/teacher_provider.dart';
 import 'package:dognect/user/provider/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:intl/date_symbol_data_file.dart';
-
-
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 
-import 'common/page/provider/calendar_provider.dart';
+import 'common/page/calendar/provider/calendar_provider.dart';
+import 'common/page/calendar/provider/modal_bottom_sheet_provider.dart';
 import 'firebase_options.dart';
-import 'home/view/home_screen.dart';
 import 'myuser/provider/my_user_provider.dart';
 import 'notice/page/provider/notice_detail_provider.dart';
 
@@ -48,7 +41,8 @@ void main() async {
   );
 
 
-  runApp(MultiProvider(
+  runApp(
+      MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => RouterData()),
         ChangeNotifierProvider(create: (_) => RoleProvider()),
@@ -73,6 +67,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => TeacherTalkDetailProvider()),
         ChangeNotifierProvider(create: (_)=>KakaoUserCheckProvider()),
         ChangeNotifierProvider(create: (_) => MyUserProvider()),
+        ChangeNotifierProvider(create: (_) => ChatGptProvider()),
       ],child:MyApp()));
 }
 

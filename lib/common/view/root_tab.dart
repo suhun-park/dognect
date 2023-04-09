@@ -1,4 +1,5 @@
 import 'package:dognect/common/data/color.dart';
+import 'package:dognect/common/page/chat_gpt/view/chat_gpt_screen.dart';
 import 'package:dognect/common/provider/tab_pvrovider.dart';
 import 'package:dognect/myuser/view/my_user_screen.dart';
 import 'package:dognect/noticeboard/view/notice_board_screen.dart';
@@ -52,14 +53,14 @@ class RootTab extends StatelessWidget {
           SpeedDialChild(
               key: UniqueKey(),
               backgroundColor: WEEK_BOTTOMNAVIGATION_COLOR,
-              child: const Icon(Icons.camera_alt,color: Colors.white,),
+              child: Image.asset('assets/img/chatGPT.png',width: 80.w,height:60.h,fit: BoxFit.fitWidth,),
               shape: CircleBorder(
                   side: BorderSide(
                     color: Colors.white,
                     width: 3.0.w,
                   )
               ),
-              onTap:() {}),
+              onTap:() => context.go('/chatGptScreen')),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../user/login/component/data/data.dart';
-import '../../../user/provider/user_provider.dart';
+import '../../../../user/provider/user_provider.dart';
+
 import '../model/memo_model.dart';
 
 class CalendarProvider with ChangeNotifier {

@@ -7,24 +7,29 @@ class FreeBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ListView.builder(
-          shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: 20,
-            itemBuilder: (context,index){
-          return Container(
-            height: 100.h,
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black,width: 1.w))
-            ),
-            child: ListTile(
+    return ListView.builder(
+      shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: 20,
+        itemBuilder: (context,index){
+      return Container(
+        margin: EdgeInsets.all(10.w),
+        height: 100.h,
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black,width: 1.w))
+        ),
+        child: Column(
+          children: [
+            Text("오늘 뭐할지 모르겠어요"),
+            Row(
+              children: [
 
-              title: Text("Dd"),
-            ),
-          );
-        }),
+              ],
+            )
 
-    );
+          ],
+        )
+      );
+    });
   }
 }

@@ -41,12 +41,14 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> with TickerProvid
                 indicatorColor: Colors.black,
                 controller: _tabBarController,
                 tabs: [
-                  SizedBox(
+                  Container(
                     height: 30.h,
+                    alignment: Alignment.center,
                     child: Text('자유게시판'),
                   ),
                   Container(
                     height: 30.h,
+                    alignment: Alignment.center,
                     child: Text("앨범게시판"),
                   ),
                 ],
@@ -57,7 +59,7 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> with TickerProvid
         ),
         body: TabBarView(
       controller: _tabBarController,
-      children: [
+      children: const [
         FreeBoardScreen(),
         AlbumBulletinBoardScreen(),
 

@@ -53,14 +53,19 @@ class _NoticeScreenState extends State<NoticeScreen>with TickerProviderStateMixi
               controller: _tabBarController,
               tabs: [
                 Container(
-
+                  height: 30.h,
+                  alignment: Alignment.center,
                   child: Text("알림장"),
                 ),
                 Container(
+                  height: 30.h,
+                  alignment: Alignment.center,
                   child: Text("사진첩"),
                 ),
                 Container(
-                  child: Text("선생님이 전하는 말"),
+                  height: 30.h,
+                  alignment: Alignment.center,
+                  child: Text("오늘의 한마디"),
                 )
               ],
               labelColor: Colors.black,
