@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../view/teacher/teacher_signup_screen.dart';
+import 'package:flutter/material.dart';
 
 class TeacherSignupProvider with ChangeNotifier {
 
@@ -15,6 +16,7 @@ class TeacherSignupProvider with ChangeNotifier {
   String pwdValue = '';
   String nameValue = '';
   String dogRoleValue = '';
+  String teacherCheckEmail = '';
 
   bool isTrueCheck = false;
 
@@ -81,38 +83,41 @@ class TeacherSignupProvider with ChangeNotifier {
       return null;
     }
   }
-
-  Future<void> checkFunction(BuildContext context) async {
-
+  Future<void> teacherCheckFunction(BuildContext context) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
-    if (isTrueCheck == false){
+    if (isTrueCheck == false) {
       if (nameChangedFormKey.currentState?.validate() != false &&
           dogRoleChangedFormKey.currentState?.validate() != false &&
           emailChangedFormKey.currentState?.validate() != false &&
           pwdChangedFormKey.currentState?.validate() != false) {
         try {
-          final signInMethods = await FirebaseAuth.instance
-              .fetchSignInMethodsForEmail(emailValue);
-          if (signInMethods.isNotEmpty) {
-            if(context.mounted) {
-              return teacherEmailExistsShowDialog(context);
-            }
-          }else {
-            if(context.mounted) {
-              return teacherEmailCheckShowDialog(context);
+          CollectionReference<Map<String, dynamic>> collectionReference =
+          FirebaseFirestore.instance.collection("user");
+          QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await collectionReference.where('userEmail', isEqualTo: emailValue).get();
+          for (var element in querySnapshot.docs) {
+            if (element.exists) {
+              if (context.mounted) {
+                teacherEmailExistsShowDialog(context);
+              }
+            } else {
+              if (context.mounted) {
+                teacherEmailCheckShowDialog(context);
+              }
             }
           }
+          notifyListeners();
         } on FirebaseAuthException catch (e) {
           return print(e);
-        }//비지니스 로직에서 쓰면 안되긴 하는데..
+        } //비지니스 로직에서 쓰면 안되긴 하는데..
       }
-    }else if(isTrueCheck == true) {
+    } else if (isTrueCheck == true) {
       await user?.reload();
       if (FirebaseAuth.instance.currentUser?.emailVerified == true) {
         print(user?.uid);
         if(context.mounted) {
-          return context.go('/loginParentsProfileScreen');
+          return context.go('/userLoginParentsProfileScreen');
         }
       } else {
         return;
@@ -121,25 +126,24 @@ class TeacherSignupProvider with ChangeNotifier {
   }
 
 
-  Future<void> identityVerification(BuildContext context) async {
-    try {
-      isTrueCheck = true;
-      notifyListeners();
+    Future teacherIdentityVerification(BuildContext context) async {
+      try {
+        isTrueCheck = true;
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+            email: emailValue, password: pwdValue).then((value) => value,
+        );
 
-
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: emailValue, password: pwdValue).then((value) => value,
-      );
-
-      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
-
-
-    } on FirebaseAuthException catch (e) {
-      print(e);
+        await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      } on FirebaseAuthException catch (e) {
+        print(e);
+      } catch (e) {
+        print(e);
+      }
+      if (context.mounted) {
+        context.pop();
+      }
+      return
+        notifyListeners();
     }
-    if(context.mounted) {
-      return context.pop();
-    }
-
-  }
 }

@@ -51,7 +51,7 @@ class CustomTextFieldForm extends StatelessWidget {
             contentPadding: EdgeInsets.all(20),
             hintText: hintText,
             errorText: errorText,
-            hintStyle:  TextStyle(color: BODY_TEXT_COLOR,fontSize: 18.sp,fontWeight: FontWeight.bold,fontFamily: 'fonts' ),
+            hintStyle:  TextStyle(color: BODY_TEXT_COLOR,fontSize: 20.sp,fontWeight: FontWeight.bold,fontFamily: 'MaruBuri-Bold.ttf' ),
             fillColor: INPUT_BG_COLOR,
             //false - 배경색 없음
             //true - 배경색 있음

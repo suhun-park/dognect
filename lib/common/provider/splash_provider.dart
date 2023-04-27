@@ -19,12 +19,9 @@ class SplashProvider with ChangeNotifier{
   void checkToken(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context,listen: false);
     await userProvider.userDataGet();
-    OAuthToken? token = await TokenManagerProvider.instance.manager.getToken();
 
-    if (token?.refreshToken != null) {
+    if (await storage.read(key: COMMON_TOKEN_KEY) != null) {
       try {
-        await storage.write(key: ACCESS_TOKEN_KEY, value: token?.accessToken);
-         print(await storage.read(key: FIREBASE_TOKEN_KEY));
         if(userProvider.userMyModelData.isNotEmpty){
           try {
             context.go('/rootTab'); // 수정
@@ -41,18 +38,9 @@ class SplashProvider with ChangeNotifier{
         context.go('/loginFirstScreen');
         print('df');
       }
-    }else if(token?.refreshToken ==null){
-     try{
-       if(await storage.read(key: FIREBASE_TOKEN_KEY) != null) {
-         context.go('/rootTab');
     }else{
-         context.go('/loginFirstScreen');
-       }
-     }catch(e){
-       context.go('/loginFirstScreen');
-     }
-    }else if(await storage.read(key: FIREBASE_TOKEN_KEY) == null && await storage.read(key: REFRESH_TOKEN_KEY) == null){
       context.go('/loginFirstScreen');
+      print("ds");
     }
     }
   }

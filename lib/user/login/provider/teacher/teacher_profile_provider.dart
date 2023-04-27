@@ -52,7 +52,7 @@ class TeacherProfileProvider with ChangeNotifier{
     final roleGetData = Provider.of<RoleProvider>(context, listen: false);
     final teacherSignUpProvider = Provider.of<TeacherSignupProvider>(context, listen: false);
     try {
-      await storage.write(key: FIREBASE_TOKEN_KEY, value: user?.uid);
+      await storage.write(key: COMMON_TOKEN_KEY, value: user?.uid);
       await FirebaseFirestore.instance.collection('user').doc().set({
         'teacherName' : teacherSignUpProvider.nameValue,
         'dogRole': teacherSignUpProvider.dogRoleValue,

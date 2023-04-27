@@ -4,18 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 class MyUserProvider with ChangeNotifier{
   final storage = FlutterSecureStorage();
 
-  Future signOut() async {
-    final kakaoModel = KakaoLogin();
+  void signOut(BuildContext context) async {
     await Firebase.initializeApp();
     try {
-      await kakaoModel.logout();
-      await FirebaseAuth.instance.signOut();
-      String? value = await storage.read(key: FIREBASE_TOKEN_KEY);
-      print(value);
+     await storage.delete(key: COMMON_TOKEN_KEY);
+     context.go('/loginFirstScreen');
       print('sign out complete');
 
     } catch (e) {

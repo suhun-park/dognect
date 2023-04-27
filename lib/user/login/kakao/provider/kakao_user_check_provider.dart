@@ -1,3 +1,4 @@
+import 'package:dognect/user/login/component/data/data.dart';
 import 'package:dognect/user/login/provider/login_first_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,20 +21,18 @@ class KakaoUserCheckProvider with ChangeNotifier{
     final viewModel = KakaoModel(KakaoLogin());
     await viewModel.login();
     await userProvider.userDataGet();
-    OAuthToken? token = await TokenManagerProvider.instance.manager.getToken();
-    if (token != null && userProvider.userMyModelData.isNotEmpty) {
+    if (COMMON_TOKEN_KEY == '' && userProvider.userMyModelData.isEmpty) {
       try {
-        context.go('/rootTab');
+        context.go('/kakaoUserSignUpScreen');
       } catch (e) {
         return null;
       }
-    } else if (userProvider.userMyModelData.isEmpty) {
+    } else {
       try {
-        context.push('/kakaoUserSignUpScreen');
+        context.push('/rootTab');
       } catch (e) {
         print("로그인 할 수 없습니다");
       }
-    }else {
     }
   }
 

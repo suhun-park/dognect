@@ -34,7 +34,7 @@ import '../provider/login_first_provider.dart';
                           width: 250.w,
                           height: 250.h,
                           child: Image.asset('assets/img/splash.png')),
-                      Container(
+                     /* Container(
                         margin:  EdgeInsets.only(top: 20.h),
                         child:  Text(
                           "애완견과 함께 유치원을 다녀볼까요?",
@@ -42,7 +42,7 @@ import '../provider/login_first_provider.dart';
                             fontSize: 28.sp,
                           ),
                         ),
-                      ),
+                      ),*/
                        SizedBox(
                         height: 25.h,
                       ),
@@ -50,14 +50,14 @@ import '../provider/login_first_provider.dart';
                       CustomTextFieldForm(
                         globalKey: loginFistProvider.emailFormKey,
                         onChanged: (value) => loginFistProvider.emailController(value),
-                        hintText: '이메일 입력',
+                        hintText: 'Email',
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) =>loginFistProvider.emailValidator(value),
                       ),
                       CustomTextFieldForm(
                         globalKey: loginFistProvider.pwdFormKey,
                         onChanged: (value) => loginFistProvider.pwdController(value),
-                        hintText: '비밀번호 입력',
+                        hintText: 'Pwd',
                         keyboardType: TextInputType.visiblePassword,
                         validator: (value) => loginFistProvider.pwdValidator(value),
                       ),

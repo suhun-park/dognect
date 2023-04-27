@@ -13,11 +13,14 @@ import '../../provider/user/user_signup_provider.dart';
 
 
 
-class UserSignUpScreen extends StatelessWidget {
+class UserSignUpScreen extends StatefulWidget {
   const UserSignUpScreen({Key? key}) : super(key: key);
 
+  @override
+  State<UserSignUpScreen> createState() => _UserSignUpScreenState();
+}
 
-
+class _UserSignUpScreenState extends State<UserSignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final getData = Provider.of<UserSignUpProvider>(context);

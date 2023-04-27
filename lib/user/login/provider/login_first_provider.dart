@@ -71,7 +71,7 @@ class LoginFirstProvider with ChangeNotifier {
             email: emailLoginValue, password: pwdLoginValue);
         final FirebaseAuth auth = FirebaseAuth.instance;
         User? user = auth.currentUser;
-        await storage.write(key: FIREBASE_TOKEN_KEY, value: credential.user?.uid);
+        await storage.write(key: COMMON_TOKEN_KEY, value: credential.user?.uid);
          context.go('/rootTab');
       } on firebase_user.FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {

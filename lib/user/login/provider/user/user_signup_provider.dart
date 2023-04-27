@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../view/user/user_signup_screen.dart';
@@ -14,7 +14,7 @@ class UserSignUpProvider with ChangeNotifier {
   final pwdChangedFormKey = GlobalKey<FormState>();
   final nameChangedFormKey = GlobalKey<FormState>();
   final petNameChangedFormKey = GlobalKey<FormState>();
-
+  String checkEmail = '';
   String emailValue = '';
   String pwdValue = '';
   String nameValue = '';
@@ -96,17 +96,22 @@ class UserSignUpProvider with ChangeNotifier {
           emailChangedFormKey.currentState?.validate() != false &&
           pwdChangedFormKey.currentState?.validate() != false) {
         try {
-          final signInMethods = await FirebaseAuth.instance
-              .fetchSignInMethodsForEmail(emailValue);
-          if (signInMethods.isNotEmpty) {
-            if(context.mounted) {
-              return emailExistsShowDialog(context);
+            CollectionReference<Map<String, dynamic>> collectionReference =
+            FirebaseFirestore.instance.collection("user");
+            QuerySnapshot<Map<String, dynamic>> querySnapshot =
+            await collectionReference.where('userEmail',isEqualTo: emailValue).get();
+            for(var element in querySnapshot.docs) {
+              if(element.exists) {
+                if(context.mounted){
+                 return emailExistsShowDialog(context);
+                }
+              }else{
+                if(context.mounted) {
+                  return emailCheckShowDialog(context);
+                }
+              }
             }
-          }else {
-            if(context.mounted) {
-              return emailCheckShowDialog(context);
-            }
-          }
+          notifyListeners();
         } on FirebaseAuthException catch (e) {
           return print(e);
         }//비지니스 로직에서 쓰면 안되긴 하는데..
@@ -125,12 +130,9 @@ class UserSignUpProvider with ChangeNotifier {
     }
 
 
-  Future<void> identityVerification(BuildContext context) async {
+  Future identityVerification(BuildContext context) async{
     try {
       isTrueCheck = true;
-      notifyListeners();
-
-
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: emailValue, password: pwdValue).then((value) => value,
       );
@@ -140,10 +142,14 @@ class UserSignUpProvider with ChangeNotifier {
 
     } on FirebaseAuthException catch (e) {
       print(e);
+    }catch(e){
+    print(e);
     }
     if(context.mounted) {
-      return context.pop();
+      context.pop();
     }
+    return
+    notifyListeners();
 
   }
 }

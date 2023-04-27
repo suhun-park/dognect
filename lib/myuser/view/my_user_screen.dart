@@ -93,7 +93,7 @@ class MyUserScreen extends StatelessWidget {
                       ProfileOption(text: '공지사항', onClick: () {}),
                       ProfileOption(text: '약관정책', onClick: () {}),
                       ProfileOption(text: '버전정보', onClick: () {}),
-                      ProfileOption(text: '로그아웃', onClick: () => myUserProvider.signOut()),
+                      ProfileOption(text: '로그아웃', onClick: () => myUserProvider.signOut(context)),
                     ],
                   ),
                 ),

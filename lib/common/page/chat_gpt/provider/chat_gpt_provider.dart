@@ -1,22 +1,43 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:dognect/common/data/chat_gpt_data.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 
-class ChatGptProvider with ChangeNotifier{
-  String apiKey = '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';
-  String chatText = "";
+import '../model/chat_gpt_model.dart';
+
+class ChatGptProvider with ChangeNotifier {
+  final textController = TextEditingController();
+  String apiKey = CHAT_GPT_KEY;
   bool widgetCheck = false;
   String query = '';
-  String? chatGptValue (String value) {
+  String role = '';
+  StreamController<ChatGptModel> chatStreamController = StreamController();
+
+  List<String> chatList = [];
+  List<String> userList = [];
+
+  String? chatGptValue(String value) {
     query = value;
-    print(query);
-    notifyListeners();
+
     return query;
   }
 
-  Future<void> generateText() async {
+  void addChat(ChatGptModel chat) {
+    if (!chatStreamController.isClosed) {
+      chatStreamController.sink.add(chat);
+    }
+  }
 
+  void setText() {
+    textController.clear();
+    userList.add(query);
+    notifyListeners();
+  }
+
+
+  Future<void> generateText() async {
     final requestBody = {
       'model': 'gpt-3.5-turbo',
       'messages': [
@@ -32,15 +53,24 @@ class ChatGptProvider with ChangeNotifier{
       },
       body: encodedParams,
     );
+
     if (response.statusCode == 200) {
       var data = jsonDecode(utf8.decode(response.bodyBytes));
-      chatText = data['choices'][0]['message']['content'];
+      ChatGptModel chatGptModel = ChatGptModel.fromJson(data);
+      role = data['choices'][0]['message']['role'];
+      chatList.add(chatGptModel.content!);
+      addChat(chatGptModel); // chatStreamController.sink.add(chatGptModel) 대신 addChat(chatGptModel) 호출
       widgetCheck = true;
       notifyListeners();
     } else {
-      print(chatText = "Error: ${response.reasonPhrase}");
       notifyListeners();
     }
-
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    textController;
+    chatStreamController;
   }
 }

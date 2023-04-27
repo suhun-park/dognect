@@ -19,17 +19,25 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  final calendarProvider = CalendarProvider();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    calendarProvider.init(context);
-    calendarProvider.memoEventFunction();
+    final calendarProvider = Provider.of<CalendarProvider>(context,listen: false);
+    calendarProvider.calendarDayMangeMent(DateTime.now(), DateTime.now(), context);
+
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    final calendarProvider = Provider.of<CalendarProvider>(context,listen: false);
+    calendarProvider.calendarDayMangeMent(DateTime.now(), DateTime.now(), context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final calendarProvider = Provider.of<CalendarProvider>(context);
-    final homeProvider = Provider.of<HomeProvider>(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: ModalBottomSheetWidget(),
@@ -43,14 +51,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
         child: Column(
           children: [
             CalendarWidget(),
-            StreamBuilder<List<MemoModel>>(
-                stream: calendarProvider.memoDataStream,
-                initialData: calendarProvider.memoModelData,
-                builder: (context,snapshot){
-                  final snapshotData = snapshot.data;
-              if(snapshot.hasError) {
-                return Text("데이터가 없습니다");
-              }else if(snapshot.hasData){
+        StreamProvider<List<MemoModel>>.value(
+          value: calendarProvider.memoController.stream,
+          initialData: calendarProvider.memoModelData,
+          child: Consumer<List<MemoModel>>(
+              builder: (context, memoList, _) {
                 return Column(
                   children: [
                     Container(
@@ -62,17 +67,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         children: [
                           Container(
                               margin: EdgeInsets.only(left: 10.w),
-                              child: Text(calendarProvider.selectChangedDay)),
+                              child: Text(calendarProvider.selectChangedDay)
+                          ),
                           Container(
                               margin: EdgeInsets.only(right: 10.w),
-                              child: Text('${snapshot.data!.length.toString()}개')),
+                              child: Text('${memoList.length.toString()}개')
+                          ),
                         ],
                       ),
                     ),
                     ListView.builder(
-                      shrinkWrap:true,
+                        shrinkWrap:true,
                         scrollDirection: Axis.vertical,
-                        itemCount: snapshot.data?.length,
+                        itemCount: memoList.length,
                         itemBuilder: (context,index){
                           return Container(
                             margin: EdgeInsets.fromLTRB(10.w,20.h,10.w,0),
@@ -85,18 +92,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               onTap: (){},
                               child: ListTile(
                                 contentPadding: EdgeInsets.symmetric(vertical: 10.0.h,),
-                                title: Text(snapshotData![index].memo.toString(),textAlign: TextAlign.left,),
+                                title: Text(memoList[index].memo.toString(),textAlign: TextAlign.left,),
                                 leading: Container(
                                   margin: EdgeInsets.only(left: 5.w),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                    Text(snapshotData![index].firstTime.toString(),style: TextStyle(fontSize: 15.sp,color: Colors.cyan,)),
-                                    SizedBox(
-                                      height: 3.h,
-                                    ),
-                                    Text(snapshotData![index].finalTime.toString(),style: TextStyle(fontSize: 12.sp,color: Colors.cyan,)),
-                                  ],),
+                                      Text(memoList[index].firstTime.toString(),style: TextStyle(fontSize: 15.sp,color: Colors.cyan,)),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Text(memoList[index].finalTime.toString(),style: TextStyle(fontSize: 12.sp,color: Colors.cyan,)),
+                                    ],),
                                 ),
                                 trailing: Container(
                                   margin: EdgeInsets.only(right: 20.w),
@@ -105,7 +112,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   decoration: BoxDecoration(
                                     border: Border.all(width: 1,color: Colors.black),
                                     shape: BoxShape.circle,
-                                    color: Color(int.parse(snapshotData![index].color!)),
+                                    color: Color(int.parse(memoList[index].color!)),
                                   ),
                                 ),
                               ),
@@ -113,16 +120,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           );
                         }),
                   ],
-                );//dfad
+                );
               }
-              return CircularProgressIndicator();
-            }
-            ),
-
-
-          ],
+          ),
         ),
+        ]
       ),
-    );
+    ));
   }
 }

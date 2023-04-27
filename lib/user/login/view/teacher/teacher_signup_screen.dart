@@ -9,11 +9,14 @@ import '../../../../common/data/color.dart';
 import '../../component/layout/sign_up_text_form.dart';
 import '../../provider/teacher/teacher_signup_provider.dart';
 
-class TeacherSignupScreen extends StatelessWidget {
+class TeacherSignupScreen extends StatefulWidget {
   const TeacherSignupScreen({Key? key}) : super(key: key);
 
+  @override
+  State<TeacherSignupScreen> createState() => _TeacherSignupScreenState();
+}
 
-
+class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
   @override
   Widget build(BuildContext context) {
     final customWidth = MediaQuery.of(context).size.width;
@@ -105,11 +108,11 @@ class TeacherSignupScreen extends StatelessWidget {
                           height: customHeight * 0.01,
                         ),
                         TextButton(
-                            onPressed: () => teacherSignUpProvider.checkFunction(context),
-                            child: teacherSignUpProvider.isTrueCheck ? const Text(
+                            onPressed: () => teacherSignUpProvider.teacherCheckFunction(context),
+                            child: teacherSignUpProvider.isTrueCheck ?  Text(
                               "확인",
-                              style: TextStyle(fontSize: 25),
-                            ): const Text("인증하기",style: TextStyle(fontSize: 25),)),
+                              style: TextStyle(fontSize: 25.sp),
+                            ): Text("인증하기",style: TextStyle(fontSize: 25.sp),)),
                       ]),
                 ),
               ],
@@ -130,7 +133,7 @@ Future teacherEmailCheckShowDialog(BuildContext context){
       Container(
         child: TextButton(
           child: const Text("확인"),
-          onPressed:() => teacherSignupProvider.identityVerification(context),
+          onPressed:() => teacherSignupProvider.teacherIdentityVerification(context),
         ),
       ),
       Container(

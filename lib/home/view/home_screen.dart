@@ -4,6 +4,7 @@ import 'package:dognect/common/view/root_tab.dart';
 
 import 'package:dognect/home/provider/home_provider.dart';
 import 'package:dognect/user/provider/user_provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final userDataProvider = Provider.of<UserProvider>(context);
     final homeProvider = Provider.of<HomeProvider>(context);
     homeProvider.customDateChange();
+
     return Scaffold(
       key: _drawer,
       backgroundColor: BACKGROUND_COLOR,

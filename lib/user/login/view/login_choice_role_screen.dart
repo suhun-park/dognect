@@ -28,7 +28,6 @@ class LoginChoiceRoleScreen extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                Image.asset('assets/img/splash.png',width: 50.w,height: 50.h),
                 SizedBox(
                   height: 80.h,
                 ),

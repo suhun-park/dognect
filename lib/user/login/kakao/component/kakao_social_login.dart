@@ -22,11 +22,11 @@ class KakaoLogin implements SocialLogin{
         try {
           OAuthToken token =await UserApi.instance.loginWithKakaoTalk();
           String authCode = await AuthCodeClient.instance.toString();
-          await storage.write(key: ACCESS_TOKEN_KEY, value: token.accessToken);
-          await storage.write(key: REFRESH_TOKEN_KEY,value: token.refreshToken);
+          await storage.write(key: COMMON_TOKEN_KEY,value: token.idToken);
           TokenManagerProvider.instance.manager.setToken(token);
           User? user;
           user = await UserApi.instance.me();
+          print(user);
 
 
           AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
@@ -47,12 +47,10 @@ class KakaoLogin implements SocialLogin{
             },
           );
           final profileInfo = json.decode(response.body);
-          await storage.write(key: ACCESS_TOKEN_KEY, value: token.accessToken);
-          await storage.write(key: REFRESH_TOKEN_KEY,value: token.refreshToken);
+          await storage.write(key: COMMON_TOKEN_KEY,value: token.idToken);
           TokenManagerProvider.instance.manager.setToken(token);
           User? user;
           user = await UserApi.instance.me();
-
 
           AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
           return true;

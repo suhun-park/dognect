@@ -14,6 +14,7 @@ class ModalBottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final modalBottomSheetProvider = Provider.of<ModalBottomSheetProvider>(context,listen: false);
     return FloatingActionButton(child: Icon(Icons.add), onPressed: () {
       showModalBottomSheet(
@@ -35,7 +36,6 @@ class ModalBottomSheetWidget extends StatelessWidget {
                 leading: Icon(Icons.add),
                 title: Text("메모하기"),
                 onTap: (){
-                  context.pop();
                   showModalBottomSheet(context: context, builder: (_){
                     return Container(
                       height: 400.h,
@@ -165,8 +165,7 @@ class ModalBottomSheetWidget extends StatelessWidget {
                                  }),
                                ),
                             Expanded(
-                              child: Consumer<
-                                  ModalBottomSheetProvider>(
+                              child: Consumer<ModalBottomSheetProvider>(
                                 builder: (context,
                                     provider,
                                     child)

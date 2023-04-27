@@ -39,9 +39,9 @@ class ModalBottomSheetProvider with ChangeNotifier{
 
     selectedTime.then((timeOfDay){
       startSelectedTime = '${timeOfDay?.hour} : ${timeOfDay?.minute}';
-      notifyListeners();
       startH = timeOfDay?.hour;
       startM = timeOfDay?.minute;
+      notifyListeners();
       return startSelectedTime;
     });
   }
@@ -94,11 +94,27 @@ class ModalBottomSheetProvider with ChangeNotifier{
           'dateTime' : calendarProvider.selectChangedDay,
         },
       );
+      if(context.mounted) {
+        Navigator.of(context).pop();
+        calendarProvider.getMemoData(context).then((_) {
+          startSelectedTime = '';
+          finalSelectedTime = '';
+          memoValue = '';
+          userColor= '';
+          userColorName = '';
+          memoController.clear();
+          notifyListeners();
+        });
+      }
     }
-      calendarProvider.getMemoData(context);
-      context.pop();
     }catch(e){
       print(e);
     }
     }
+    @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    memoController.clear();
+  }
   }

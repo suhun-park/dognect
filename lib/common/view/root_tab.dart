@@ -53,14 +53,14 @@ class RootTab extends StatelessWidget {
           SpeedDialChild(
               key: UniqueKey(),
               backgroundColor: WEEK_BOTTOMNAVIGATION_COLOR,
-              child: Image.asset('assets/img/chatGPT.png',width: 80.w,height:60.h,fit: BoxFit.fitWidth,),
+              child: Image.asset('assets/img/chatGPT.png',width: 60.w,height:60.h,fit: BoxFit.fitWidth,),
               shape: CircleBorder(
                   side: BorderSide(
                     color: Colors.white,
                     width: 3.0.w,
                   )
               ),
-              onTap:() => context.go('/chatGptScreen')),
+              onTap:() => context.push('/chatGptScreen')),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

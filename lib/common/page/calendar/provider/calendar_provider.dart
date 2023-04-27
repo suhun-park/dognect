@@ -18,18 +18,16 @@ class CalendarProvider with ChangeNotifier {
   String selectChangedDay = '';
   List<MemoModel> memoModelData = [];
   CalendarFormat calendarFormat = CalendarFormat.month;
-  final StreamController<List<MemoModel>> _controller = StreamController.broadcast();
-  Stream<List<MemoModel>> get memoDataStream => _controller.stream;
-  Map<DateTime,List> events = {};
+
+  final StreamController<List<MemoModel>> memoController = StreamController();
+
+  Map<DateTime, List> events = {};
   DateTime dateParse = DateTime.now();
 
-
-  void calendarDayMangeMent(DateTime selectDay, DateTime focusDay,BuildContext context) {
+  void calendarDayMangeMent(DateTime selectDay, DateTime focusDay, BuildContext context) {
     selectedDay = selectDay;
     focusedDay = focusDay;
-    notifyListeners();
-    selectChangedDay = DateFormat('yyyy-MM-dd EEEE','ko').format(focusedDay);
-    print(selectChangedDay);
+    selectChangedDay = DateFormat('yyyy-MM-dd EEEE', 'ko').format(focusedDay);
     getMemoData(context);
 
     notifyListeners();
@@ -38,55 +36,71 @@ class CalendarProvider with ChangeNotifier {
   calendarDayChange(context, day) {
     switch (day.weekday) {
       case 1:
-        return const Center(child: Text('월'),);
+        return const Center(
+          child: Text('월'),
+        );
       case 2:
-        return const Center(child: Text('화'),);
+        return const Center(
+          child: Text('화'),
+        );
       case 3:
-        return const Center(child: Text('수'),);
+        return const Center(
+          child: Text('수'),
+        );
       case 4:
-        return const Center(child: Text('목'),);
+        return const Center(
+          child: Text('목'),
+        );
       case 5:
-        return const Center(child: Text('금'),);
+        return const Center(
+          child: Text('금'),
+        );
       case 6:
         return const Center(
-          child: Text('토', style: TextStyle(color: Colors.red),),);
+          child: Text(
+            '토',
+            style: TextStyle(color: Colors.red),
+          ),
+        );
       case 7:
         return const Center(
-          child: Text('일', style: TextStyle(color: Colors.red),),);
+          child: Text(
+            '일',
+            style: TextStyle(color: Colors.red),
+          ),
+        );
     }
   }
+
   void onFormatChanged(format) {
     calendarFormat = format;
     notifyListeners();
-}
+  }
+  void addMemo(MemoModel memo) {
+    if (!memoController.isClosed) {
+      memoController.sink.add(memoModelData);
+    }
+  }
   Future<List<MemoModel>> getMemoData(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final storage = FlutterSecureStorage();
+    final userProvider = Provider.of<UserProvider>(context,listen: false);
+
     CollectionReference<Map<String, dynamic>> collectionReference =
-    FirebaseFirestore.instance.collection("memo");
+        FirebaseFirestore.instance.collection("memo");
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-    await collectionReference.where('uid', isEqualTo: await userProvider.userMyModelData[0].uid,).where('dateTime',isEqualTo: selectChangedDay).orderBy('firstTime').get();
+        await collectionReference
+            .where(
+              'uid',
+              isEqualTo: await userProvider.userMyModelData[0].uid,
+            )
+            .where('dateTime', isEqualTo: selectChangedDay)
+            .orderBy('firstTime')
+            .get();
     memoModelData.clear();
     for (var element in querySnapshot.docs) {
       memoModelData.add(MemoModel.fromJson(element.data()));
+      addMemo(MemoModel.fromJson(element.data()));
     }
     notifyListeners();
     return memoModelData;
-  }
-  void init(BuildContext context) async {
-    calendarDayMangeMent(selectedDay,focusedDay,context);
-    await getMemoData(context);
-  }
-  void memoEventFunction() {
-    for(var memo in memoModelData) {
-      dateParse = DateTime.parse(memo.dateTime.toString());
-    }
-    print(dateParse);
-  }
-
-  @override
-  void dispose() {
-    _controller.close();
-    super.dispose();
   }
 }
