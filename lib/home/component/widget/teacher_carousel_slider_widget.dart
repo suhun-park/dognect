@@ -22,58 +22,54 @@ class TeacherCarouselSliderWidget extends StatelessWidget {
             carouselController: teacherTalkProvider.controller,
             itemCount: teacherTalkData!.length,
             itemBuilder: (context, index, _) {
-              return Container(
-                width: double.infinity,
-                height: 100.h,
-                child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    margin: EdgeInsets.all(10.h),
-                    width: double.infinity,
-                    height: 180.h,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(width: 1.w, color: Colors.black),
-                      borderRadius: BorderRadius.circular(10.w),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            FutureBuilder(
-                              future: teacherTalkProvider.getTeacherTalkImageGet(context),
-                              builder: (context, snapshot) {
-                                final teacherTalkImageGet = snapshot.data;
-                                if (snapshot.hasError) {
-                                  return Container();
-                                } else if (snapshot.hasData) {
-                                  return Container(
-                                    margin: EdgeInsets.all(10.w),
-                                    width: 50.w,
-                                    height: 50.h,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage(teacherTalkImageGet?[index]),
-                                      ),
+              return InkWell(
+                onTap: () {},
+                child: Container(
+                  margin: EdgeInsets.all(10.h),
+                  width: double.infinity,
+                  height: 100.h,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(width: 1.w, color: Colors.black),
+                    borderRadius: BorderRadius.circular(10.w),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          FutureBuilder(
+                            future: teacherTalkProvider.getTeacherTalkImageGet(context),
+                            builder: (context, snapshot) {
+                              final teacherTalkImageGet = snapshot.data;
+                              if (snapshot.hasError) {
+                                return Container();
+                              } else if (snapshot.hasData) {
+                                return Container(
+                                  margin: EdgeInsets.all(10.w),
+                                  width: 50.w,
+                                  height: 50.h,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(teacherTalkImageGet?[index]),
                                     ),
-                                  );
-                                }
-                                return const CircularProgressIndicator();
-                              },
-                            ),
-                            SizedBox(width: 10.w),
-                            Text(
-                                '${teacherTalkData[index].name}(${teacherTalkData[index].manager})\n${teacherTalkData[index].phone}'),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(10.w),
-                          child: Text(teacherTalkData[index].content!),
-                        ),
-                      ],
-                    ),
+                                  ),
+                                );
+                              }
+                              return const CircularProgressIndicator();
+                            },
+                          ),
+                          SizedBox(width: 10.w),
+                          Text(
+                              '${teacherTalkData[index].name}(${teacherTalkData[index].manager})\n${teacherTalkData[index].phone}'),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10.w),
+                        child: Text(teacherTalkData[index].content!),
+                      ),
+                    ],
                   ),
                 ),
               );

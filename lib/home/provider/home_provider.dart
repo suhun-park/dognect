@@ -9,15 +9,7 @@ class HomeProvider with ChangeNotifier{
    DateTime? customDateTime = DateTime.now();
    String formatData = '';
 
-  Future<String> getUserImage(BuildContext context) async{
-    final userProvider = Provider.of<UserProvider>(context);
 
-    final Reference storageRef = FirebaseStorage.instance.ref('users/').child('${userProvider.userMyModelData[0].uid}.png');
-
-    userImage = await storageRef.getDownloadURL();
-
-    return userImage;
-  }
 
   void customDateChange() {
     formatData = DateFormat('yyyy.MM.dd EEEE','ko').format(customDateTime!).toString();

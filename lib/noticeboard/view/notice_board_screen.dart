@@ -1,6 +1,6 @@
 import 'package:dognect/common/data/color.dart';
-import 'package:dognect/noticeboard/page/album_bulletin_board.dart';
-import 'package:dognect/noticeboard/page/free_board_screen.dart';
+import 'package:dognect/noticeboard/page/album/view/album_bulletin_board.dart';
+import 'package:dognect/noticeboard/page/freeboard/view/free_board_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

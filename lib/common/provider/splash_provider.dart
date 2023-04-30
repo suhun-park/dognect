@@ -18,10 +18,10 @@ class SplashProvider with ChangeNotifier{
 
   void checkToken(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context,listen: false);
-    await userProvider.userDataGet();
 
     if (await storage.read(key: COMMON_TOKEN_KEY) != null) {
       try {
+        await userProvider.userDataGet();
         if(userProvider.userMyModelData.isNotEmpty){
           try {
             context.go('/rootTab'); // 수정
@@ -42,5 +42,6 @@ class SplashProvider with ChangeNotifier{
       context.go('/loginFirstScreen');
       print("ds");
     }
+    notifyListeners();
     }
   }

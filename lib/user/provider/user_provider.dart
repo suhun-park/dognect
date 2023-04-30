@@ -9,7 +9,7 @@ import '../login/component/data/data.dart';
 import '../model/user_model.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart'as kakao_user;
 
-class UserProvider with ChangeNotifier{
+class UserProvider with ChangeNotifier {
   List<UserModel> userMyModelData = [];
   final storage = FlutterSecureStorage();
 
@@ -20,15 +20,18 @@ class UserProvider with ChangeNotifier{
     FirebaseFirestore.instance.collection("user");
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
     await collectionReference
-    .where('uid',isEqualTo: await storage.read(key: COMMON_TOKEN_KEY)).get();
-    if(userMyModelData.isEmpty) {
-      for (var element in querySnapshot.docs) {
-        userMyModelData.add(UserModel.fromJson(element.data()));
-        print(userMyModelData[0]);
-      }
+        .where('uid', isEqualTo: await storage.read(key: COMMON_TOKEN_KEY))
+        .get();
+    for (var element in querySnapshot.docs) {
+      userMyModelData.add(UserModel.fromJson(element.data()));
+      print(userMyModelData[0]);
     }
     notifyListeners();
     return userMyModelData;
   }
 
+  void clearUserData() {
+    userMyModelData.clear();
+    notifyListeners();
+  }
 }

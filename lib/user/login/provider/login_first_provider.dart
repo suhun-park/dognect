@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../provider/user_provider.dart';
 import '../component/data/data.dart';
 
 class LoginFirstProvider with ChangeNotifier {
@@ -58,7 +59,6 @@ class LoginFirstProvider with ChangeNotifier {
     }
   }
   Future<void> loginUserCheckFunction(BuildContext context) async {
-
     if (emailFormKey.currentState?.validate() != false &&
         pwdFormKey.currentState?.validate() != false) {
       final firebase_user.FirebaseAuth auth =
@@ -66,23 +66,32 @@ class LoginFirstProvider with ChangeNotifier {
       firebase_user.User? user = auth.currentUser;
       await user?.reload();
       try {
+        UserProvider().clearUserData();
         final credential = await firebase_user.FirebaseAuth.instance
             .signInWithEmailAndPassword(
             email: emailLoginValue, password: pwdLoginValue);
         final FirebaseAuth auth = FirebaseAuth.instance;
         User? user = auth.currentUser;
         await storage.write(key: COMMON_TOKEN_KEY, value: credential.user?.uid);
-         context.go('/rootTab');
+        await UserProvider().userDataGet();
+
+        notifyListeners();
+        context.go('/rootTab');
       } on firebase_user.FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
         } else if (e.code == 'wrong-password') {
           print('Wrong password provided for that user.');
         }
-
       }
     }
   }
+
+
+
+
+
+
 
 
 }

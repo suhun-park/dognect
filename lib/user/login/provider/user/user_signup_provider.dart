@@ -19,7 +19,7 @@ class UserSignUpProvider with ChangeNotifier {
   String pwdValue = '';
   String nameValue = '';
   String petNameValue = '';
-
+  bool isEmailSent = false;
   bool isTrueCheck = false;
 
 
@@ -86,7 +86,7 @@ class UserSignUpProvider with ChangeNotifier {
     }
   }
 
-  Future<void> checkFunction(BuildContext context) async {
+  void checkFunction(BuildContext context) async {
 
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
@@ -96,21 +96,21 @@ class UserSignUpProvider with ChangeNotifier {
           emailChangedFormKey.currentState?.validate() != false &&
           pwdChangedFormKey.currentState?.validate() != false) {
         try {
-            CollectionReference<Map<String, dynamic>> collectionReference =
-            FirebaseFirestore.instance.collection("user");
-            QuerySnapshot<Map<String, dynamic>> querySnapshot =
-            await collectionReference.where('userEmail',isEqualTo: emailValue).get();
-            for(var element in querySnapshot.docs) {
-              if(element.exists) {
-                if(context.mounted){
-                 return emailExistsShowDialog(context);
-                }
-              }else{
-                if(context.mounted) {
-                  return emailCheckShowDialog(context);
-                }
+          CollectionReference<Map<String, dynamic>> collectionReference =
+          FirebaseFirestore.instance.collection("user");
+          QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await collectionReference.where('userEmail',isEqualTo: emailValue).get();
+          for(var element in querySnapshot.docs) {
+            if(element.exists) {
+              if(context.mounted){
+                emailExistsShowDialog(context);
+                return ;
               }
             }
+          }
+          if(context.mounted) {
+            emailCheckShowDialog(context);
+          }
           notifyListeners();
         } on FirebaseAuthException catch (e) {
           return print(e);
@@ -119,7 +119,6 @@ class UserSignUpProvider with ChangeNotifier {
     }else if(isTrueCheck == true) {
       await user?.reload();
       if (FirebaseAuth.instance.currentUser?.emailVerified == true) {
-        print(user?.uid);
         if(context.mounted) {
           return context.go('/userLoginParentsProfileScreen');
         }
@@ -133,11 +132,17 @@ class UserSignUpProvider with ChangeNotifier {
   Future identityVerification(BuildContext context) async{
     try {
       isTrueCheck = true;
+
+
       UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: emailValue, password: pwdValue).then((value) => value,
-      );
+          .createUserWithEmailAndPassword(email: emailValue, password: pwdValue);
 
       await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      if (FirebaseAuth.instance.currentUser?.emailVerified == true) {
+        if (context.mounted) {
+          return context.go('/userLoginParentsProfileScreen');
+        }
+      }
 
 
     } on FirebaseAuthException catch (e) {
@@ -148,7 +153,6 @@ class UserSignUpProvider with ChangeNotifier {
     if(context.mounted) {
       context.pop();
     }
-    return
     notifyListeners();
 
   }

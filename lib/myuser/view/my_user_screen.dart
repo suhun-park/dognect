@@ -1,6 +1,7 @@
 import 'package:dognect/common/data/color.dart';
 import 'package:dognect/home/provider/home_provider.dart';
 import 'package:dognect/myuser/provider/my_user_provider.dart';
+import 'package:dognect/user/model/user_model.dart';
 import 'package:dognect/user/provider/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class MyUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
     final myUserProvider = Provider.of<MyUserProvider>(context);
     return Scaffold(
@@ -54,8 +54,8 @@ class MyUserScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                  SizedBox(height: 12.h),
-                                 FutureBuilder<String>( //이미지 데이터 가져오기
-                                        future: homeProvider.getUserImage(context),
+                                 FutureBuilder<List<UserModel>>( //이미지 데이터 가져오기
+                                        future: userProvider.userDataGet(),
                                         builder: (context, snapshot) {
                                           if (snapshot.hasError) {
                                             return Text("error");
@@ -66,7 +66,7 @@ class MyUserScreen extends StatelessWidget {
                                                   shape: BoxShape.circle,
                                                   image: DecorationImage(
                                                     fit: BoxFit.fill,
-                                                    image: NetworkImage(snapshot.data!,
+                                                    image: NetworkImage(snapshot.data![0].profileImage.toString(),
                                                     ),
                                                   )
                                               ),

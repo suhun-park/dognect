@@ -19,6 +19,7 @@ class UserLoginParentsProfileProvider with ChangeNotifier {
   final parentsNickNameKey = GlobalKey<FormState>();
   XFile? imageFile;
   String nickNameValue = '';
+  String downloadUrl = '';
 
   Future<void> selectedImages() async {
     XFile? selectedImages = await picker.pickImage(
@@ -45,12 +46,25 @@ class UserLoginParentsProfileProvider with ChangeNotifier {
   void imageChange() {
     selectedImages();
   }
+
   Future<void> checkFunction(BuildContext context) async {
     final storage = FlutterSecureStorage();
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     final roleGetData = Provider.of<RoleProvider>(context, listen: false);
     final signUpGetData = Provider.of<UserSignUpProvider>(context, listen: false);
+    try {
+      String fileName = '${user?.uid!}.png';
+      Reference firebaseStorageRef =
+      FirebaseStorage.instance.ref().child('users/$fileName');
+      File changeImageFile = File(imageFile!.path);
+      UploadTask uploadTask = firebaseStorageRef.putFile(changeImageFile);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+       downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      print(downloadUrl);
+    } catch (e) {
+      print(e);
+    }
     try {
       await FirebaseFirestore.instance.collection('user').doc().set({
         'petName': signUpGetData.petNameValue,
@@ -59,20 +73,12 @@ class UserLoginParentsProfileProvider with ChangeNotifier {
         'userPwd': signUpGetData.pwdValue,
         'nickName': nickNameValue,
         'uid': user?.uid,
+        'kindergarten' : "병아리",
+        'profileImage' : downloadUrl,
+
       });
-    } catch (e) {
-      print(e);
     }
-    try {
-        String fileName = '${user?.uid!}.png';
-        Reference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child('users/$fileName');
-        File changeImageFile = File(imageFile!.path);
-        UploadTask uploadTask = firebaseStorageRef.putFile(changeImageFile);
-        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
-        String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-        print(downloadUrl);
-    } catch(e){
+    catch(e){
       print(e);
     }
     notifyListeners();

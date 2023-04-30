@@ -3,6 +3,7 @@ import 'package:dognect/common/data/color.dart';
 import 'package:dognect/common/view/root_tab.dart';
 
 import 'package:dognect/home/provider/home_provider.dart';
+import 'package:dognect/user/model/user_model.dart';
 import 'package:dognect/user/provider/user_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
@@ -46,39 +52,36 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                color: BOTTOMNAVIGATION_COLOR,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40.0),
-                  bottomRight: Radius.circular(40.0),
+            FutureProvider<List<UserModel>>(
+              create:(_) =>  userDataProvider.userDataGet(),
+              initialData: [
+                userDataProvider.userMyModelData[0],
+              ],
+                child: UserAccountsDrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: BOTTOMNAVIGATION_COLOR,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0),
+                    ),
+                  ),
+                  accountName: Text(userDataProvider.userMyModelData[0].nickName!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),), //수정 값을 받아와야함
+                  accountEmail: Text(userDataProvider.userMyModelData[0].userEmail!,style: TextStyle(fontSize: 15.sp),), //수정 값을 받아야함
+                  onDetailsPressed: (){ //펼쳐지게끔
+                    print('arrow is clicked');
+                  },
+                  currentAccountPicture:  Container(
+                    width: 63.w, height: 60.h,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(userDataProvider.userMyModelData[0].profileImage.toString(),
+                          ),
+                        )
+                    ),
+                  ),
                 ),
-              ),
-              accountName: Text(userDataProvider.userMyModelData[0].nickName!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),), //수정 값을 받아와야함
-              accountEmail: Text(userDataProvider.userMyModelData[0].userEmail!,style: TextStyle(fontSize: 15),), //수정 값을 받아야함
-              onDetailsPressed: (){ //펼쳐지게끔
-                print('arrow is clicked');
-              },
-              currentAccountPicture:  FutureBuilder<String>( //이미지 데이터 가져오기
-                  future: homeProvider.getUserImage(context),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text("error");
-                    } else if (snapshot.hasData) {
-                      return Container(
-                        width: 63.w, height: 60.h,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(snapshot.data!,
-                              ),
-                            )
-                        ),
-                      );
-                    }
-                    return CircularProgressIndicator();
-                  }),
             ),
             ListTile(
               leading: Icon(Icons.home,color: Colors.grey[850],),
@@ -108,56 +111,56 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: Column(
-            children: [
-              Row(
-                children: [
-                  FutureBuilder<String>( //이미지 데이터 가져오기
-                      future: homeProvider.getUserImage(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text("error");
-                        } else if (snapshot.hasData) {
-                          return Container(
-                            margin: EdgeInsets.fromLTRB(35.w, 5.h, 0,0),
-                            width: 63.w, height: 60.h,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(snapshot.data!,
-                                  ),
-                                )
-                            ),
-                            child: InkWell(
-                              onTap: (){_drawer.currentState?.openDrawer();},
-                            ),
-                          );
-                        }
-                        return CircularProgressIndicator();
-                      }),
-
-                  Container( //1열 가로
-
-                    width: 180.w,
-                    height: 68.h,
-                    padding: EdgeInsets.fromLTRB(0, 14.h, 0, 5.h),
-                    margin: EdgeInsets.only(left: 25.w),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween ,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('안녕하세요, ${userDataProvider.userMyModelData[0].nickName}님',
-                          style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),),
-                        Text(homeProvider.formatData,style: TextStyle(fontSize: 17.sp),),
-                      ],
-                    ),
+          children: [
+            Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(35.w, 5.h, 0, 0),
+                  width: 63.w,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                          userDataProvider.userMyModelData[0].profileImage
+                              .toString(),
+                        ),
+                      )),
+                  child: InkWell(
+                    onTap: () {
+                      _drawer.currentState?.openDrawer();
+                    },
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(50.w, 0, 10.w, 0),
-                    padding: EdgeInsets.only(top: 3.h),
-                    height: 68.h,
-                    width: 60.w,
-                    child:IconButton(onPressed: (){}, icon: Icon(Icons.notifications,size: 50.h,)),
+                ),
+                Container(
+                  //1열 가로
+                  width: 180.w,
+                  height: 68.h,
+                  padding: EdgeInsets.fromLTRB(0, 14.h, 0, 5.h),
+                  margin: EdgeInsets.only(left: 25.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '안녕하세요, ${userDataProvider.userMyModelData[0].nickName}님',
+                        style: TextStyle(
+                            fontSize: 16.sp, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        homeProvider.formatData,
+                        style: TextStyle(fontSize: 17.sp),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(50.w, 0, 10.w, 0),
+                  padding: EdgeInsets.only(top: 3.h),
+                  height: 68.h,
+                  width: 60.w,
+                  child:IconButton(onPressed: (){}, icon: Icon(Icons.notifications,size: 50.h,)),
                   )
 
                 ],
@@ -169,28 +172,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('신선한 오늘,',style: TextStyle(fontSize: 19.sp,fontWeight: FontWeight.bold),),
-                          Text('반려견과 함께 산책 어떤가요?',style: TextStyle(fontSize: 19.sp,fontWeight: FontWeight.bold),),
-                          Gap(5),
-                          Text('강아지의 하루는 인간의 3일입니다.',style: TextStyle(fontSize: 15.sp,),),
-                          Text('하루의 산 3~4번은 기본!',style: TextStyle(fontSize: 15.sp,),),
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('신선한 오늘,',style: TextStyle(fontSize: 19.sp,fontWeight: FontWeight.bold),),
+                        Text('반려견과 함께 산책 어떤가요?',style: TextStyle(fontSize: 19.sp,fontWeight: FontWeight.bold),),
+                        Gap(5),
+                        Text('강아지의 하루는 인간의 3일입니다.',style: TextStyle(fontSize: 15.sp,),),
+                        Text('하루의 산 3~4번은 기본!',style: TextStyle(fontSize: 15.sp,),),
+                      ],
                     ),
                     SizedBox(
                       width: 10.w,
                     ),
                     Expanded(
-                      child: Container(
-                        child: Image.asset(
-                        'assets/img/walkDog.png',
-                        fit: BoxFit.cover,
+                      child: Image.asset(
+                      'assets/img/walkDog.png',
+                      fit: BoxFit.cover,
                       ),
-                          ),
                     ),
                   ],
                 ),
@@ -214,11 +213,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               SizedBox(
-                height: 25.h,
+                height: 14.h,
               ),
                const TeacherCarouselSliderWidget(),
-
-
             ],
           ),
         ),

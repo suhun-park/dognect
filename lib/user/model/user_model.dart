@@ -6,6 +6,7 @@ class UserModel {
   String? userPwd;
   String? uid;
   String? kinderGarden;
+  String? profileImage;
 
   UserModel({
     required this.nickName,
@@ -15,6 +16,7 @@ class UserModel {
     required this.userPwd,
     required this.uid,
     required this.kinderGarden,
+    required this.profileImage,
 
   });
 
@@ -26,6 +28,7 @@ class UserModel {
     role = json['role'];
     uid = json['uid'];
     kinderGarden = json['kinderGarden'];
+    profileImage = json['profileImage'];
 
   }
 
@@ -38,6 +41,7 @@ class UserModel {
     role = data['role'];
     uid = data['uid'];
     kinderGarden = data['kinderGarden'];
+    profileImage = data['profileImage'];
 
     return data;
   }
