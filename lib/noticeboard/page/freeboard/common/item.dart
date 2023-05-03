@@ -1,0 +1,1 @@
+final List<String> items = ["동네 산책하기", "부탁하기", "자유"];

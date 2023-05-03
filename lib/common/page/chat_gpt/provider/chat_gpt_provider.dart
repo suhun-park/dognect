@@ -38,6 +38,7 @@ class ChatGptProvider with ChangeNotifier {
 
 
   Future<void> generateText() async {
+
     final requestBody = {
       'model': 'gpt-3.5-turbo',
       'messages': [
@@ -53,9 +54,8 @@ class ChatGptProvider with ChangeNotifier {
       },
       body: encodedParams,
     );
-
     if (response.statusCode == 200) {
-      var data = jsonDecode(utf8.decode(response.bodyBytes));
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
       ChatGptModel chatGptModel = ChatGptModel.fromJson(data);
       role = data['choices'][0]['message']['role'];
       chatList.add(chatGptModel.content!);
@@ -63,6 +63,7 @@ class ChatGptProvider with ChangeNotifier {
       widgetCheck = true;
       notifyListeners();
     } else {
+      print(response.statusCode);
       notifyListeners();
     }
   }

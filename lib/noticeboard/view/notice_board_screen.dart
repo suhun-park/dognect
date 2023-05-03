@@ -30,6 +30,9 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> with TickerProvid
     return Scaffold(
         appBar: AppBar(
           title: Text('게시판'),
+          actions: [
+            IconButton(icon:Icon(Icons.search), onPressed: () {},),
+          ],
           centerTitle: true,
           backgroundColor: BOTTOMNAVIGATION_COLOR,
           bottom: PreferredSize(

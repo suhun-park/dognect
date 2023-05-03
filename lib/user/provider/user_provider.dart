@@ -23,10 +23,11 @@ class UserProvider with ChangeNotifier {
         .where('uid', isEqualTo: await storage.read(key: COMMON_TOKEN_KEY))
         .get();
     for (var element in querySnapshot.docs) {
-      userMyModelData.add(UserModel.fromJson(element.data()));
+      if(userMyModelData.isEmpty){
+        userMyModelData.add(UserModel.fromJson(element.data()));
+      }
       print(userMyModelData[0]);
     }
-    notifyListeners();
     return userMyModelData;
   }
 

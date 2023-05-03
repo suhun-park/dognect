@@ -2,6 +2,7 @@ import 'package:dognect/common/data/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class FreeBoardScreen extends StatelessWidget {
   const FreeBoardScreen({Key? key}) : super(key: key);
@@ -9,6 +10,13 @@ class FreeBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.push("/freeBoardWrite"),
+        backgroundColor: Colors.cyan,
+        child: Icon(Icons.add,color: Colors.white,size: 35.sp,),
+
+      ),
       backgroundColor: BACKGROUND_COLOR,
       body: Stack(
         children: [

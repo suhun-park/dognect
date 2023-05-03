@@ -9,6 +9,8 @@ import 'package:dognect/notice/page/provider/album_detail_provider.dart';
 import 'package:dognect/notice/page/provider/teacher_talk_detail_provider.dart';
 import 'package:dognect/notice/provider/notice_calendar_provider.dart';
 import 'package:dognect/notice/provider/notice_provider.dart';
+import 'package:dognect/noticeboard/page/freeboard/provider/free_board_provider.dart';
+import 'package:dognect/noticeboard/page/freeboard/provider/free_board_write_provider.dart';
 import 'package:dognect/user/login/kakao/provider/kakao_user_check_provider.dart';
 import 'package:dognect/user/login/provider/teacher/kpostal_provider.dart';
 import 'package:dognect/user/login/provider/login_first_provider.dart';
@@ -19,6 +21,7 @@ import 'package:dognect/user/login/provider/user/user_signup_provider.dart';
 import 'package:dognect/user/provider/teacher_provider.dart';
 import 'package:dognect/user/provider/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,6 +69,8 @@ void main() async {
         ChangeNotifierProvider(create: (_)=>KakaoUserCheckProvider()),
         ChangeNotifierProvider(create: (_) => MyUserProvider()),
         ChangeNotifierProvider(create: (_) => ChatGptProvider()),
+        ChangeNotifierProvider(create: (_) => FreeBoardProvider()),
+        ChangeNotifierProvider(create: (_) => FreeBoardWriteProvider()),
       ],child:MyApp()));
 }
 

@@ -3,6 +3,7 @@ import 'package:dognect/common/view/splash_screen.dart';
 import 'package:dognect/home/view/home_screen.dart';
 import 'package:dognect/notice/page/page/notice_detail_write_screen.dart';
 import 'package:dognect/notice/page/view/notice_detail_screen.dart';
+import 'package:dognect/noticeboard/page/freeboard/view/free_board_write.dart';
 import 'package:dognect/user/login/kakao/view/kakao_user_signup_screen.dart';
 import 'package:dognect/user/login/provider/teacher/teacher_signup_provider.dart';
 import 'package:dognect/user/login/view/login_choice_role_screen.dart';
@@ -107,6 +108,12 @@ class RouterData extends ChangeNotifier {
       path: '/chatGptScreen',
       builder: (BuildContext context, GoRouterState state) {
         return const ChatGptScreen();
+      },
+    ),
+    GoRoute(
+      path: '/freeBoardWrite',
+      builder: (BuildContext context, GoRouterState state) {
+        return const FreeBoardWrite();
       },
     ),
 

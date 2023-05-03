@@ -32,10 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-  }
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
     homeProvider.customDateChange();
   }
