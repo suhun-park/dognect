@@ -23,7 +23,7 @@ class RootTab extends StatelessWidget {
     final rootTabController = Provider.of<TabProvider>(context);
     return Scaffold(
       floatingActionButton: SpeedDial(
-        icon: Icons.add,
+        icon: Icons.pets_outlined,
         activeIcon: Icons.close,
         shape: CircleBorder(
             side: BorderSide(
@@ -42,7 +42,7 @@ class RootTab extends StatelessWidget {
         children: [
           SpeedDialChild(
             key: UniqueKey(),
-              backgroundColor: WEEK_BOTTOMNAVIGATION_COLOR,
+              backgroundColor: BOTTOMNAVIGATION_COLOR,
               child: const Icon(Icons.calendar_month,color: Colors.white,),
               shape: CircleBorder(
                   side: BorderSide(
@@ -53,7 +53,7 @@ class RootTab extends StatelessWidget {
               onTap:() => context.push('/calendarScreen')),
           SpeedDialChild(
               key: UniqueKey(),
-              backgroundColor: WEEK_BOTTOMNAVIGATION_COLOR,
+              backgroundColor: BOTTOMNAVIGATION_COLOR,
               child: Image.asset('assets/img/chatGPT.png',width: 60.w,height:60.h,fit: BoxFit.fitWidth,),
               shape: CircleBorder(
                   side: BorderSide(

@@ -1,5 +1,6 @@
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:dognect/common/data/color.dart';
+import 'package:dognect/common/data/custom_date_change_provider.dart';
 import 'package:dognect/common/view/root_tab.dart';
 
 import 'package:dognect/home/provider/home_provider.dart';
@@ -32,14 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    final homeProvider = Provider.of<HomeProvider>(context, listen: false);
-    homeProvider.customDateChange();
+    final customDateChangeProvider = Provider.of<CustomDateChangeProvider>(context, listen: false);
+    customDateChangeProvider.homeCustomDateChange();
   }
   final GlobalKey<ScaffoldState> _drawer = GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
     final userDataProvider = Provider.of<UserProvider>(context);
-    final homeProvider = Provider.of<HomeProvider>(context);
-    homeProvider.customDateChange();
+    final customDateChangeProvider = Provider.of<CustomDateChangeProvider>(context, listen: false);
+    customDateChangeProvider.homeCustomDateChange();
 
     return Scaffold(
       key: _drawer,
@@ -145,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        homeProvider.formatData,
+                        customDateChangeProvider.homeFormatDate,
                         style: TextStyle(fontSize: 17.sp),
                       ),
                     ],

@@ -1,5 +1,6 @@
 import 'package:dognect/common/data/go_router_data.dart';
 import 'package:dognect/common/page/chat_gpt/provider/chat_gpt_provider.dart';
+import 'package:dognect/common/data/custom_date_change_provider.dart';
 import 'package:dognect/common/provider/splash_provider.dart';
 import 'package:dognect/home/provider/ad_carousel_slider_provider.dart';
 import 'package:dognect/home/provider/tab_button_provider.dart';
@@ -54,7 +55,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => SplashProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => TabProvider()),
-        ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => CustomDateChangeProvider()),
         ChangeNotifierProvider(create: (_) => TabButtonProvider()),
         ChangeNotifierProvider(create: (_) => AdCarouselSliderProvider()),
         ChangeNotifierProvider(create: (_) => TeacherProvider()),
