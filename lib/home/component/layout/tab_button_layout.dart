@@ -34,7 +34,7 @@ class TabButtonLayout extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
               ),
               child: Center(
-                child: Text('Event', style: TextStyle(color: tabButtonProvider.tabButtonIndex == 0 ? BOTTOMNAVIGATION_COLOR : Colors.white),),
+                child: Text('EVENT', style: TextStyle(color: tabButtonProvider.tabButtonIndex == 0 ? BOTTOMNAVIGATION_COLOR : Colors.white),),
               ),
             ),
           ),

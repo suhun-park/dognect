@@ -5,6 +5,7 @@ import 'package:dognect/user/provider/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import '../model/free_board_model.dart';
 
@@ -31,12 +32,35 @@ class FreeBoardProvider with ChangeNotifier{
     return freeBoardData;
   }
 
+
   Future<void> addLike(BuildContext context,String boardId) async{
-    final userProvider = Provider.of<UserProvider>(context,listen: false);
-  await FirebaseFirestore.instance.collection('freeBoard').doc('category').collection('like').doc().set({
-    "uid" : userProvider.userMyModelData[0].uid,
-    "boardId" : boardId,
-  });
+    final likeCheck = FirebaseFirestore.instance.collection('collectionName').doc('category').collection('like');
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final likeCheckData = await likeCheck.where("uid",isEqualTo: userProvider.userMyModelData[0].uid).where("boardId",isEqualTo: boardId).get();
+     if(likeCheckData.size == 0){
+      await FirebaseFirestore.instance
+          .collection('freeBoard')
+          .doc('category')
+          .collection('writer')
+          .doc(boardId)
+          .update({'likeCount': FieldValue.increment(1)});
+
+      await FirebaseFirestore.instance
+          .collection('freeBoard')
+          .doc('category')
+          .collection('like')
+          .doc()
+          .set({
+        "uid": userProvider.userMyModelData[0].uid,
+        "boardId": boardId,
+      });}else{
+
+     };
+    }
+  Stream<List<FreeBoardModel>> likeStream() {
+    return FirebaseFirestore.instance.collection('freeBoard').doc('category').collection('like').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => FreeBoardModel.fromJson(doc.data())).toList();
+    });
   }
 
 

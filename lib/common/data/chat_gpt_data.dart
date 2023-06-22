@@ -1,1 +1,1 @@
-const CHAT_GPT_KEY = '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';
+const CHAT_GPT_KEY = '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';

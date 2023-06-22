@@ -34,6 +34,7 @@ import 'common/page/calendar/provider/modal_bottom_sheet_provider.dart';
 import 'firebase_options.dart';
 import 'myuser/provider/my_user_provider.dart';
 import 'notice/page/provider/notice_detail_provider.dart';
+import 'noticeboard/page/album/write/picture/provider/album_write_picture_provider.dart';
 
 void main() async {
   KakaoSdk.init(
@@ -72,6 +73,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ChatGptProvider()),
         ChangeNotifierProvider(create: (_) => FreeBoardProvider()),
         ChangeNotifierProvider(create: (_) => FreeBoardWriteProvider()),
+        ChangeNotifierProvider(create: (_) => AlbumWritePictureProvider())
       ],child:MyApp()));
 }
 
